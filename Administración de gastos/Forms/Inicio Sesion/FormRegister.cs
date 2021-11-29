@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Administración_de_gastos
+namespace Administración_de_gastos.Forms.Inicio_Sesion
 {
-    public partial class Form1 : Form
+    public partial class FormRegister : Form
     {
-        public Form1()
+        public FormRegister()
         {
             InitializeComponent();
         }
