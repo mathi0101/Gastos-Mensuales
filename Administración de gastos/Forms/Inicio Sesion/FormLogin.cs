@@ -82,8 +82,11 @@ namespace Administración_de_gastos
             string user = txtUser.Text;
             string pass = txtPassword.Text;
 
-            if (PUsuarios.FindUser(user) != null)
+            Usuario obj = PUsuarios.FindUser(user);
+            
+            if (obj != null)
             {
+                Console.WriteLine(obj.Nacimiento);
                 MessageBox.Show("Ya hay un usuario registrado con el mismo nombre de usuario.\nPrueba con otro", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 LimpiarCampos();
                 return;
@@ -95,8 +98,10 @@ namespace Administración_de_gastos
                 if (pass.Length >= 8)
                 {
                     string passEncrypted= Encriptacion.Encrypt(pass, "password", 256);
-                    Usuario obj = new Usuario(user,passEncrypted);
-                    if (PUsuarios.Create(obj))
+                    Usuario objs = new Usuario();
+                    objs.UserName = user;
+                    objs.Password = passEncrypted;
+                    if (PUsuarios.Create(objs))
                     {
                         MessageBox.Show("Tu cuenta ha sido añadida con éxito.\nYa puedes acceder a la aplicación", "Bienvenido!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LimpiarCampos();

@@ -64,12 +64,13 @@ namespace Administración_de_gastos.Clases
                         int id = int.Parse(dr["id"].ToString());
                         string user = dr["username"].ToString();
                         string contra = dr["password"].ToString();
-                        string nombre = dr["username"].ToString();
-                        string apellido = dr["password"].ToString();
+                        string nombre = dr["name"].ToString();
+                        string apellido = dr["lastname"].ToString();
 
-                        Usuario user = new Usuario() {Id=id, Nombre=nombre, contra};
-                        user.Id = id;
-                        return user;
+                        DateTime nacimiento = DateTime.Parse(dr["birthDate"].ToString());
+
+                        Usuario NewUser = new Usuario() {Id=id, Nombre=nombre, Password=contra};
+                        return NewUser;
                     }
                     else{
                         return null;
@@ -98,8 +99,10 @@ namespace Administración_de_gastos.Clases
                         string nombre = dr["username"].ToString();
                         string contra = dr["password"].ToString();
 
-                        Usuario user = new Usuario(nombre, contra);
+                        Usuario user = new Usuario();
                         user.Id = id;
+                        user.Nombre = nombre;
+                        user.Password = contra;
                         lista.Add(user);
                     }
                 }

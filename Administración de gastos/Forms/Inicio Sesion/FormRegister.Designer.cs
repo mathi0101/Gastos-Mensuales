@@ -29,10 +29,17 @@ namespace Administración_de_gastos.Forms.Inicio_Sesion
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FormRegister
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(457, 404);
+            this.Name = "FormRegister";
             this.Text = "FormRegister";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
