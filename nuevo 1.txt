@@ -1,0 +1,16 @@
+
+
+
+
+static readonly string dbName = "AdminGastos.db";
+		static readonly string AppFolderName = "GastosUserData";
+		static readonly string dbPath= Path.Combine(Environment.GetFolderPath(
+	Environment.SpecialFolder.ApplicationData),AppFolderName ,dbName);
+
+		#endregion Propiedades
+
+		#region Públicas
+
+		public static string getPath() { return dbPath; }
+		public static bool Exists() { return File.Exists(dbPath); }
+
