@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConexionDB {
+namespace ConexionDB.Database {
 
 	public static class Database {
 
@@ -35,30 +35,28 @@ namespace ConexionDB {
 
 		#endregion Propiedades
 
-		#region Crear
+		#region Generales
 
 		public static bool CrearBase() {
 			Directory.CreateDirectory(RutaDeCarpeta);
 			SQLiteConnection.CreateFile(RutaReal);
 
-			using (SQLiteConnection conexion = Conexion.sqlConnection) {
-				conexion.Open();
-
-				string sql = "create table highscores (name varchar(20), score int)";
-
-				SQLiteCommand command = new SQLiteCommand(sql, conexion);
-				int respuesta = command.ExecuteNonQuery();
-
-				sql = "insert into highscores (name, score) values ('Me', 9001)";
-
-				command = new SQLiteCommand(sql, conexion);
-				respuesta = command.ExecuteNonQuery();
-
-				return respuesta > 0;
-			}
+			return respuesta > 0;
 		}
 
-		#endregion Crear
+		public static bool BorrarBase() {
+			bool salida;
+			try {
+				File.Delete(RutaReal);
+				Directory.Delete(RutaDeCarpeta);
+				salida = true;
+			} catch (Exception) {
+				salida = false;
+			}
+			return salida;
+		}
+
+		#endregion Generales
 
 		#region Públicas
 
