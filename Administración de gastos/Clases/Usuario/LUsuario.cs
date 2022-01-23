@@ -12,27 +12,28 @@ namespace Administración_de_gastos.Clases {
 		public List<CUsuario> Read2List() {
 			List<CUsuario> lista = new List<CUsuario>();
 
-			using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-				conexion.Open();
-				string query = "SELECT * FROM users";
-				SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-				cmd.CommandType = System.Data.CommandType.Text;
+			//using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
+			//	conexion.Open();
+			//	string query = "SELECT * FROM users";
+			//	SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+			//	cmd.CommandType = System.Data.CommandType.Text;
 
-				using (SQLiteDataReader dr = cmd.ExecuteReader()) {
-					while (dr.Read()) {
-						int id = int.Parse(dr["id"].ToString());
-						string nombre = dr["username"].ToString();
-						string contra = dr["password"].ToString();
+			//	using (SQLiteDataReader dr = cmd.ExecuteReader()) {
+			//		while (dr.Read()) {
+			//			int id = int.Parse(dr["id"].ToString());
+			//			string nombre = dr["username"].ToString();
+			//			string contra = dr["password"].ToString();
 
-						CUsuario user = new CUsuario();
-						user.Id = id;
-						user.Nombre = nombre;
-						user.Password = contra;
-						lista.Add(user);
-					}
-				}
-				return lista;
-			}
+			//			CUsuario user = new CUsuario();
+			//			user.Id = id;
+			//			user.Nombre = nombre;
+			//			user.Password = contra;
+			//			lista.Add(user);
+			//		}
+			//	}
+			//	return lista;
+			//}
+			return lista;
 		}
 	}
 }

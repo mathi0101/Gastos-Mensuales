@@ -100,6 +100,7 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\PDatabase.cs" />
+    <Compile Include="FuncionesBD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

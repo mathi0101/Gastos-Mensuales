@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 namespace ConexionDB {
 
 	public class Conexion {
-		public static string StringConexion { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
+		private static string StringFromAppConfig { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
 
-		public static SQLiteConnection conexion = new SQLiteConnection(StringConexion);
+		private static string StringCreate { get => $"Data Source={Database.Database.RutaReal};Version=3;"; }
+
+		public static SQLiteConnection conexion = new SQLiteConnection(StringCreate);
 	}
 }

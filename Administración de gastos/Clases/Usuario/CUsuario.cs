@@ -15,8 +15,8 @@ namespace Administración_de_gastos.Clases {
 		public string Password { get; set; }
 		public string Nombre { get; set; }
 		public string Apellido { get; set; }
-		public DateTime Nacimiento { get; set; }
-		public DateTime FechaRegistro { get; set; }
+		public DateTime? Nacimiento { get; set; }
+		public DateTime? FechaRegistro { get; set; }
 
 		public string ClavePlana {
 			get => Encriptacion.DesEncriptar(Password);
@@ -27,7 +27,32 @@ namespace Administración_de_gastos.Clases {
 		#region Constructor
 
 		public CUsuario() {
+			Instanciar();
+			Inicializar();
 		}
+
+		public CUsuario(string user) {
+			Instanciar();
+			Inicializar();
+			User = user;
+		}
+
+		#region Inicializar e Instanciar
+
+		private void Instanciar() {
+			Nacimiento = null;
+			FechaRegistro = null;
+		}
+
+		private void Inicializar() {
+			Id = 0;
+			User = String.Empty;
+			Password = String.Empty;
+			Nombre = String.Empty;
+			Apellido = String.Empty;
+		}
+
+		#endregion Inicializar e Instanciar
 
 		#endregion Constructor
 
@@ -55,6 +80,16 @@ namespace Administración_de_gastos.Clases {
 			PUsuario pers = new PUsuario();
 
 			return pers.Recuperar(this);
+		}
+
+		public bool Existe() {
+			PUsuario pers = new PUsuario();
+			return pers.Existe(this);
+		}
+
+		public bool IniciaSesion() {
+			PUsuario pers = new PUsuario();
+			return pers.IniciaSesion(this);
 		}
 
 		#endregion Persistencia

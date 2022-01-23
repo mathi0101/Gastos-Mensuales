@@ -25,8 +25,6 @@ namespace ConexionDB.Database {
 		#region Crear
 
 		public void CrearBase() {
-			string sql = "create table highscores (name varchar(20), score int)";
-
 			SQLiteCommand command = new SQLiteCommand() {
 				Connection = conexion,
 				CommandText = @"CREATE TABLE Usuarios(

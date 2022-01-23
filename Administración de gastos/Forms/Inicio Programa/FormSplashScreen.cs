@@ -1,4 +1,5 @@
-﻿using ConexionDB.Database;
+﻿using ConexionDB;
+using ConexionDB.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,15 +28,11 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 
 			if (Database.Existe()) {
 				label.Text = "Cargando Base de Datos...";
-				Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-				config.ConnectionStrings.ConnectionStrings.Remove("cadena");
-				config.ConnectionStrings.ConnectionStrings.Add(new ConnectionStringSettings("cadena", $"Data Source={Database.RutaReal};Version=3;"));
-				config.Save(ConfigurationSaveMode.Modified);
-				ConfigurationManager.RefreshSection("connectionStrings");
+				Conexion.conexion.Open(); // Abrimos conexion
 				todoOK = true;
 			} else {
 				if (Database.CrearBase()) {
-					label.Text = "Generando nueva Base de Datos...";
+					label.Text = "Creando la Base de Datos...";
 					todoOK = true;
 				} else {
 					todoOK = false;

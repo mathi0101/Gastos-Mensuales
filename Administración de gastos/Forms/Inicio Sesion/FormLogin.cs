@@ -74,43 +74,55 @@ namespace Administración_de_gastos {
 		}
 
 		private void Login() {
-			string user = txtUser.Text;
-			string pass = txtPassword.Text;
+			CUsuario user = new CUsuario() {
+				User = txtUser.Text,
+				Password = txtPassword.Text
+			};
+			if (user.Existe()) {
+				if (user.IniciaSesion()) {
+					MessageBox.Show("Has iniciado sesión correctamente!\nBienvenido", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				} else {
+					MessageBox.Show("Contraseña Incorrecta", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					txtPassword.Focus();
+				}
+			} else {
+				MessageBox.Show("Este usuario no existe\nCrea tu usuario con el botón Registrar!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				btnNewUser.Focus();
+			}
 		}
 
 		private void Register() {
 			string user = txtUser.Text;
 			string pass = txtPassword.Text;
 
-			CUsuario obj = PUsuario.FindUser(user);
+			CUsuario obj = new CUsuario(user);
 
-			if (obj != null) {
-				Console.WriteLine(obj.Nacimiento);
-				MessageBox.Show("Ya hay un usuario registrado con el mismo nombre de usuario.\nPrueba con otro", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			if (obj.Existe()) {
+				MessageBox.Show("Este usuario ya se encuentra registrado.\nInicia sesión o elige otro usuario", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				LimpiarCampos();
 				return;
-			}
-
-			if (user != "") {
-				if (pass.Length >= 8) {
-					//string passEncrypted = Encriptacion.Encrypt(pass, "password", 256);
-					string contraEncriptada = Encriptacion.Encriptar(pass);
-					CUsuario objs = new CUsuario();
-					objs.User = user;
-					objs.Password = contraEncriptada;
-					if (PUsuario.Add(objs)) {
-						MessageBox.Show("Tu cuenta ha sido añadida con éxito.\nYa puedes acceder a la aplicación", "Bienvenido!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-						LimpiarCampos();
+			} else {
+				if (user != "") {
+					if (pass.Length >= 1) {
+						string contraEncriptada = Encriptacion.Encriptar(pass);
+						CUsuario objs = new CUsuario();
+						objs.User = user;
+						objs.Password = contraEncriptada;
+						objs.FechaRegistro = DateTime.Now;
+						if (objs.Agregar()) {
+							MessageBox.Show("Tu cuenta ha sido añadida con éxito.\nYa puedes acceder a la aplicación", "Bienvenido!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+							LimpiarCampos();
+						} else {
+							MessageBox.Show("No se ha podido agregar tu usuario a la base de datos.\nVerifica tus datos y vuelve a intentarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						}
 					} else {
-						MessageBox.Show("No se ha podido agregar tu usuario a la base de datos.\nVerifica tus datos y vuelve a intentarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						MessageBox.Show("Tu contraseña debe contener al menos 1 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						txtPassword.Focus();
 					}
 				} else {
-					MessageBox.Show("Tu contraseña debe contener al menos 8 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-					txtPassword.Focus();
+					MessageBox.Show("Debes completar los campos vacíos para poder crear tu cuenta.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					txtUser.Focus();
 				}
-			} else {
-				MessageBox.Show("Debes completar los campos vacíos para poder crear tu cuenta.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				txtUser.Focus();
 			}
 		}
 

@@ -38,9 +38,12 @@ namespace ConexionDB.Database {
 		#region Generales
 
 		public static bool CrearBase() {
-			Directory.CreateDirectory(RutaDeCarpeta);
+			if (!Directory.Exists(RutaDeCarpeta)) {
+				Directory.CreateDirectory(RutaDeCarpeta);
+			}
 			SQLiteConnection.CreateFile(RutaReal);
 
+			Conexion.conexion.Open(); // Abrimos conexion despues de crear la base
 			PDatabase pers = new PDatabase();
 
 			bool salida = true; ;
