@@ -11,7 +11,7 @@ namespace ConexionDB.Database {
 
 		#region Conexion
 
-		private SQLiteConnection conexion = Conexion.sqlConnection;
+		private SQLiteConnection conexion = Conexion.conexion;
 
 		#endregion Conexion
 
@@ -24,15 +24,23 @@ namespace ConexionDB.Database {
 
 		#region Crear
 
-		public bool CrearDB() {
-			conexion.Open();
+		public void CrearBase() {
+			string sql = "create table highscores (name varchar(20), score int)";
 
 			SQLiteCommand command = new SQLiteCommand() {
 				Connection = conexion,
-				CommandText = "create table highscores (name varchar(20), score int)"
+				CommandText = @"CREATE TABLE Usuarios(
+									id    INTEGER NOT NULL UNIQUE,
+									user  TEXT NOT NULL UNIQUE,
+									password  TEXT NOT NULL,
+									nombre    TEXT,
+									apellido  TEXT,
+									fecha_nacimiento  TEXT,
+									fecha_registro    TEXT NOT NULL,
+									PRIMARY KEY(id AUTOINCREMENT)
+								)"
 			};
-
-			return command.ExecuteNonQuery() > 0;
+			command.ExecuteNonQuery();
 		}
 
 		#endregion Crear

@@ -1,4 +1,5 @@
 ﻿using Administración_de_gastos.Forms.Inicio_Programa;
+using ConexionDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,15 @@ namespace Administración_de_gastos {
 		private static void Main() {
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new FormSplashScreen());
+			Conexion.conexion.Open();
+			FormSplashScreen start = new FormSplashScreen();
+			Application.Run(start);
+			if (start.todoOK) {
+				Application.Run(new FormLogin());
+			}
+
+			// End of program
+			Conexion.conexion.Close();
 		}
 	}
 }

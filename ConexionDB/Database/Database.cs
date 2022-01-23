@@ -41,15 +41,42 @@ namespace ConexionDB.Database {
 			Directory.CreateDirectory(RutaDeCarpeta);
 			SQLiteConnection.CreateFile(RutaReal);
 
-			return respuesta > 0;
+			PDatabase pers = new PDatabase();
+
+			bool salida = true; ;
+			try {
+				pers.CrearBase();
+			} catch (Exception ex) {
+				salida = false;
+				throw ex;
+			}
+			return salida;
 		}
 
-		public static bool BorrarBase() {
-			bool salida;
+		public static bool BorrarBase(bool forzar = false) {
+			bool salida = true;
 			try {
+				if (forzar) {
+					Conexion.conexion.Close();
+				}
 				File.Delete(RutaReal);
-				Directory.Delete(RutaDeCarpeta);
-				salida = true;
+				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{RutaReal}> ");
+			} catch (Exception ex) {
+				salida = false;
+				throw ex;
+			}
+			return salida;
+		}
+
+		public static bool BorrarBaseYCarpeta() {
+			bool salida = true;
+			try {
+				if (BorrarBase()) {
+					Directory.Delete(RutaDeCarpeta);
+					Console.WriteLine($"Se ha borrado la carpeta ubicada en <{RutaDeCarpeta}> ");
+				} else {
+					salida = false;
+				}
 			} catch (Exception) {
 				salida = false;
 			}

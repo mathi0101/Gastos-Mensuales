@@ -11,6 +11,6 @@ namespace ConexionDB {
 	public class Conexion {
 		public static string StringConexion { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
 
-		public static SQLiteConnection sqlConnection = new SQLiteConnection(StringConexion);
+		public static SQLiteConnection conexion = new SQLiteConnection(StringConexion);
 	}
 }

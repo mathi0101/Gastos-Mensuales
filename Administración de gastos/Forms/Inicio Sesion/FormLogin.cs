@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Administración_de_gastos.Clases;
+using ConexionDB.Database;
 
 namespace Administración_de_gastos {
 
@@ -20,6 +21,11 @@ namespace Administración_de_gastos {
 		}
 
 		private void FormLogin_Load(object sender, EventArgs e) {
+		}
+
+		private void FormLogin_FormClosing(object sender, FormClosingEventArgs e) {
+			Database.BorrarBase(true);
+			Application.Exit();
 		}
 
 		#endregion Formulario
@@ -76,7 +82,7 @@ namespace Administración_de_gastos {
 			string user = txtUser.Text;
 			string pass = txtPassword.Text;
 
-			Usuario obj = PUsuario.FindUser(user);
+			CUsuario obj = PUsuario.FindUser(user);
 
 			if (obj != null) {
 				Console.WriteLine(obj.Nacimiento);
@@ -89,10 +95,10 @@ namespace Administración_de_gastos {
 				if (pass.Length >= 8) {
 					//string passEncrypted = Encriptacion.Encrypt(pass, "password", 256);
 					string contraEncriptada = Encriptacion.Encriptar(pass);
-					Usuario objs = new Usuario();
+					CUsuario objs = new CUsuario();
 					objs.User = user;
 					objs.Password = contraEncriptada;
-					if (PUsuario.Create(objs)) {
+					if (PUsuario.Add(objs)) {
 						MessageBox.Show("Tu cuenta ha sido añadida con éxito.\nYa puedes acceder a la aplicación", "Bienvenido!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 						LimpiarCampos();
 					} else {

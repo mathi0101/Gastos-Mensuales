@@ -14,6 +14,8 @@ using System.Windows.Forms;
 namespace Administración_de_gastos.Forms.Inicio_Programa {
 
 	public partial class FormSplashScreen : Form {
+		public bool todoOK;
+
 		private int contador = -1;
 
 		public FormSplashScreen() {
@@ -30,9 +32,14 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 				config.ConnectionStrings.ConnectionStrings.Add(new ConnectionStringSettings("cadena", $"Data Source={Database.RutaReal};Version=3;"));
 				config.Save(ConfigurationSaveMode.Modified);
 				ConfigurationManager.RefreshSection("connectionStrings");
+				todoOK = true;
 			} else {
-				Database.CrearBase();
-				label.Text = "Generando nueva Base de Datos...";
+				if (Database.CrearBase()) {
+					label.Text = "Generando nueva Base de Datos...";
+					todoOK = true;
+				} else {
+					todoOK = false;
+				}
 			}
 			contador = 0;
 		}
@@ -44,7 +51,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 				panelslide.Left = -35;
 			}
 
-			contador += contador >= 0 ? 1 : 0;
+			contador += contador >= 0 ? 5 : 0;
 			if (contador > 200) {
 				label.Text = "Leyendo configuración del programa...";
 			}
@@ -55,8 +62,9 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 				label.Text = "Abriendo...";
 			}
 			if (contador > 600) {
+				//Database.BorrarBase();
+				//Application.Exit();
 				this.Dispose();
-				Application.Exit();
 			}
 		}
 	}

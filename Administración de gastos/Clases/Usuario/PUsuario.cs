@@ -5,95 +5,47 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SQLite;
+using ConexionDB;
 
 namespace Administración_de_gastos.Clases {
 
-	internal static class PUsuario {
+	public class PUsuario {
 
 		#region Atributos
 
-		private static string cadena = ConfigurationManager.ConnectionStrings["cadena"].ConnectionString;
+		private SQLiteConnection conexion = Conexion.conexion;
 
 		#endregion Atributos
 
-		#region CRUD
+		#region Constructor
 
-		public static bool Create(Usuario obj) {
+		public PUsuario() {
+		}
+
+		#endregion Constructor
+
+		#region ABE
+
+		public bool Agregar(CUsuario obj) {
 			bool respuesta = true;
 
-			using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-				conexion.Open();
+			SQLiteCommand cmd = new SQLiteCommand() {
+				Connection = conexion,
+				CommandText = $"INSERT INTO {Tabla()} ({CamposBase()}) VALUES (@nombre, @contraseña)"
+			};
 
-				string query = "INSERT INTO users (username, password) VALUES (@nombre, @contraseña)";
+			cmd.Parameters.Add(new SQLiteParameter("@nombre", obj.User));
+			cmd.Parameters.Add(new SQLiteParameter("@contraseña", obj.Password));
 
-				SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-				cmd.Parameters.Add(new SQLiteParameter("@nombre", obj.User));
-				cmd.Parameters.Add(new SQLiteParameter("@contraseña", obj.Password));
+			cmd.CommandType = System.Data.CommandType.Text;
 
-				cmd.CommandType = System.Data.CommandType.Text;
-
-				if (cmd.ExecuteNonQuery() < 1) {
-					respuesta = false;
-				}
+			if (cmd.ExecuteNonQuery() < 1) {
+				respuesta = false;
 			}
 			return respuesta;
 		}
 
-		public static Usuario FindUser(string username) {
-			using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-				conexion.Open();
-
-				string query = "SELECT * FROM users WHERE username= @user";
-
-				SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-				cmd.Parameters.Add(new SQLiteParameter("@user", username));
-
-				using (SQLiteDataReader dr = cmd.ExecuteReader()) {
-					if (dr.Read()) {
-						int id = int.Parse(dr["id"].ToString());
-						string user = dr["username"].ToString();
-						string contra = dr["password"].ToString();
-						string nombre = dr["name"].ToString();
-						string apellido = dr["lastname"].ToString();
-
-						DateTime nacimiento = DateTime.Parse(dr["birthDate"].ToString());
-
-						Usuario NewUser = new Usuario() { Id = id, Nombre = nombre, Password = contra };
-						return NewUser;
-					} else {
-						return null;
-					}
-				}
-			}
-		}
-
-		public static List<Usuario> Read2List() {
-			List<Usuario> lista = new List<Usuario>();
-
-			using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-				conexion.Open();
-				string query = "SELECT * FROM users";
-				SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-				cmd.CommandType = System.Data.CommandType.Text;
-
-				using (SQLiteDataReader dr = cmd.ExecuteReader()) {
-					while (dr.Read()) {
-						int id = int.Parse(dr["id"].ToString());
-						string nombre = dr["username"].ToString();
-						string contra = dr["password"].ToString();
-
-						Usuario user = new Usuario();
-						user.Id = id;
-						user.Nombre = nombre;
-						user.Password = contra;
-						lista.Add(user);
-					}
-				}
-				return lista;
-			}
-		}
-
-		public static bool Update(Usuario obj) {
+		public bool Modificar(CUsuario obj) {
 			bool respuesta = true;
 
 			using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
@@ -115,7 +67,7 @@ namespace Administración_de_gastos.Clases {
 			return respuesta;
 		}
 
-		public static bool Delete(Usuario obj) {
+		public bool Eliminar(CUsuario obj) {
 			bool respuesta = true;
 
 			using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
@@ -135,6 +87,73 @@ namespace Administración_de_gastos.Clases {
 			return respuesta;
 		}
 
-		#endregion CRUD
+		#endregion ABE
+
+		#region Recuperar
+
+		public bool Recuperar(string username) {
+			using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
+				conexion.Open();
+
+				string query = "SELECT * FROM users WHERE username= @user";
+
+				SQLiteCommand cmd = new SQLiteCommand(query, conexion);
+				cmd.Parameters.Add(new SQLiteParameter("@user", username));
+
+				using (SQLiteDataReader dr = cmd.ExecuteReader()) {
+					if (dr.Read()) {
+						int id = int.Parse(dr["id"].ToString());
+						string user = dr["username"].ToString();
+						string contra = dr["password"].ToString();
+						string nombre = dr["name"].ToString();
+						string apellido = dr["lastname"].ToString();
+
+						DateTime nacimiento = DateTime.Parse(dr["birthDate"].ToString());
+
+						CUsuario NewUser = new CUsuario() { Id = id, Nombre = nombre, Password = contra };
+						return NewUser;
+					} else {
+						return null;
+					}
+				}
+			}
+		}
+
+		#endregion Recuperar
+
+		#region Campos
+
+		private string CamposBase() {
+			string campos = "user AS us_user, " +
+							"password AS us_password, " +
+							"nombre AS us_nombre, " +
+							"apellido AS us_apellido, " +
+							"fecha_nacimiento AS us_nacimiento, " +
+							"fecha_registro AS us_registro";
+			return campos;
+		}
+
+		#endregion Campos
+
+		#region Variables
+
+		private string AgregarVariables(CUsuario obj) {
+			string values = $"user= {obj.User}, " +
+							$"password= {obj.Password}, " +
+							$"nombre= {obj.Nombre}, " +
+							$"apellido= {obj.Apellido}, " +
+							$"fecha_nacimiento= {obj.Nacimiento}, " +
+							$"fecha_registro= {obj.fecha}";
+		}
+
+		#endregion Variables
+
+		#region Tablas
+
+		private string Tabla() {
+			return "Usuarios";
+		}
+
+		#endregion Tablas
 	}
 }
