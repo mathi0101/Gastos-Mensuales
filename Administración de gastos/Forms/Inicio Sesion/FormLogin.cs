@@ -21,11 +21,15 @@ namespace Administración_de_gastos {
 		}
 
 		private void FormLogin_Load(object sender, EventArgs e) {
+			List<CUsuario> users = new LUsuario().RecuperarTodos();
+			var x = new AutoCompleteStringCollection();
+			x.AddRange(users.Select(u => u.User).ToArray());
+			txtUser.AutoCompleteCustomSource = x;
 		}
 
 		private void FormLogin_FormClosing(object sender, FormClosingEventArgs e) {
-			Database.BorrarBase(true);
-			Application.Exit();
+			//Database.BorrarBase(true);
+			//Application.Exit();
 		}
 
 		#endregion Formulario
@@ -74,9 +78,14 @@ namespace Administración_de_gastos {
 		}
 
 		private void Login() {
+			if (txtPassword.Text.Length == 0) {
+				MessageBox.Show("Tu contraseña debe contener al menos 1 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				txtPassword.Focus();
+				return;
+			}
 			CUsuario user = new CUsuario() {
 				User = txtUser.Text,
-				Password = txtPassword.Text
+				Password = Encriptacion.Encriptar(txtPassword.Text)
 			};
 			if (user.Existe()) {
 				if (user.IniciaSesion()) {

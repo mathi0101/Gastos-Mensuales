@@ -93,5 +93,13 @@ namespace Administración_de_gastos.Clases {
 		}
 
 		#endregion Persistencia
+
+		#region String
+
+		public override string ToString() {
+			return $"{User}: {Nombre} {Apellido}";
+		}
+
+		#endregion String
 	}
 }

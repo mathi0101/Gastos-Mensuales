@@ -44,45 +44,23 @@ namespace Administración_de_gastos.Clases {
 		}
 
 		public bool Modificar(CUsuario obj) {
-			bool respuesta = true;
+			SQLiteCommand cmd = new SQLiteCommand() {
+				Connection = conexion,
+				CommandText = $"UPDATE {Tabla()} " +
+							  $"SET {AgregarVariables(obj)} " +
+							  $"WHERE {CndUser(obj)}"
+			};
 
-			//using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-			//	conexion.Open();
-
-			//	string query = "UPDATE users SET username= @nombre, password= @contraseña WHERE id= @id";
-
-			//	SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-			//	cmd.Parameters.Add(new SQLiteParameter("@id", obj.Id));
-			//	cmd.Parameters.Add(new SQLiteParameter("@nombre", obj.User));
-			//	cmd.Parameters.Add(new SQLiteParameter("@contraseña", obj.Password));
-
-			//	cmd.CommandType = System.Data.CommandType.Text;
-
-			//	if (cmd.ExecuteNonQuery() < 1) {
-			//		respuesta = false;
-			//	}
-			//}
-			return respuesta;
+			return cmd.ExecuteNonQuery() > 0;
 		}
 
 		public bool Eliminar(CUsuario obj) {
-			bool respuesta = true;
+			SQLiteCommand cmd = new SQLiteCommand() {
+				Connection = conexion,
+				CommandText = $"DELETE FROM {Tabla()} WHERE {CndUser(obj)}"
+			};
 
-			//using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-			//	conexion.Open();
-
-			//	string query = "DELETE FROM users WHERE id = @id";
-
-			//	SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-			//	cmd.Parameters.Add(new SQLiteParameter("@id", obj.Id));
-
-			//	cmd.CommandType = System.Data.CommandType.Text;
-
-			//	if (cmd.ExecuteNonQuery() < 1) {
-			//		respuesta = false;
-			//	}
-			//}
-			return respuesta;
+			return cmd.ExecuteNonQuery() > 0;
 		}
 
 		public bool Existe(CUsuario obj) {
@@ -92,7 +70,7 @@ namespace Administración_de_gastos.Clases {
 							  $"FROM {Tabla()} " +
 							  $"WHERE {CndUser(obj)}"
 			};
-			var registros = cmd.ExecuteNonQuery();
+			var registros = Convert.ToInt32(cmd.ExecuteScalar());
 			return registros > 0;
 		}
 
@@ -107,7 +85,8 @@ namespace Administración_de_gastos.Clases {
 							  $"FROM {Tabla()} " +
 							  $"WHERE {CndUser(obj)} AND {CndPass(obj)}"
 			};
-			return cmd.ExecuteNonQuery() > 0;
+			var registros = Convert.ToInt32(cmd.ExecuteScalar());
+			return registros > 0;
 		}
 
 		#endregion Inicio Sesion
@@ -122,14 +101,13 @@ namespace Administración_de_gastos.Clases {
 							  $"WHERE {CndUser(obj)}"
 			};
 			return Cargar(obj, cmd.ExecuteReader());
-			return false;
 		}
 
 		#endregion Recuperar
 
 		#region Cargar
 
-		private bool Cargar(CUsuario obj, SQLiteDataReader dr) {
+		public bool Cargar(CUsuario obj, SQLiteDataReader dr) {
 			bool salida = false;
 			if (dr.Read()) {
 				if (!dr.IsDBNull(col["id"])) {
@@ -172,7 +150,7 @@ namespace Administración_de_gastos.Clases {
 			return campos;
 		}
 
-		private string Campos() {
+		public string Campos() {
 			string campos = "id AS us_id, " +
 							"user AS us_user, " +
 							"password AS us_password, " +
@@ -215,6 +193,8 @@ namespace Administración_de_gastos.Clases {
 
 		#region Condiciones
 
+		private object CndId(CUsuario obj) => $"id= {obj.Id}";
+
 		private string CndUser(CUsuario obj) => $"user= {FuncionesBD.ToBD(obj.User)}";
 
 		private object CndPass(CUsuario obj) => $"password= {FuncionesBD.ToBD(obj.Password)}";
@@ -223,7 +203,7 @@ namespace Administración_de_gastos.Clases {
 
 		#region Tablas
 
-		private string Tabla() {
+		public string Tabla() {
 			return "Usuarios";
 		}
 

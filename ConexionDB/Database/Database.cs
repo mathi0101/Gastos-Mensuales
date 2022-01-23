@@ -66,7 +66,7 @@ namespace ConexionDB.Database {
 				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{RutaReal}> ");
 			} catch (Exception ex) {
 				salida = false;
-				throw ex;
+				//throw ex;
 			}
 			return salida;
 		}

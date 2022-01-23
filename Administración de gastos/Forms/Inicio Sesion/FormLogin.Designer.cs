@@ -99,6 +99,7 @@ namespace Administración_de_gastos
 			// 
 			// txtUser
 			// 
+			this.txtUser.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
 			this.txtUser.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
 			this.txtUser.Location = new System.Drawing.Point(78, 29);
 			this.txtUser.MaxLength = 20;

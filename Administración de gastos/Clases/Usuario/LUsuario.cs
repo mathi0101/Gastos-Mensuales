@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConexionDB;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -8,31 +9,23 @@ using System.Threading.Tasks;
 namespace Administración_de_gastos.Clases {
 
 	public class LUsuario {
+		private SQLiteConnection conexion = Conexion.conexion;
 
-		public List<CUsuario> Read2List() {
+		public List<CUsuario> RecuperarTodos() {
 			List<CUsuario> lista = new List<CUsuario>();
 
-			//using (SQLiteConnection conexion = new SQLiteConnection(cadena)) {
-			//	conexion.Open();
-			//	string query = "SELECT * FROM users";
-			//	SQLiteCommand cmd = new SQLiteCommand(query, conexion);
-			//	cmd.CommandType = System.Data.CommandType.Text;
-
-			//	using (SQLiteDataReader dr = cmd.ExecuteReader()) {
-			//		while (dr.Read()) {
-			//			int id = int.Parse(dr["id"].ToString());
-			//			string nombre = dr["username"].ToString();
-			//			string contra = dr["password"].ToString();
-
-			//			CUsuario user = new CUsuario();
-			//			user.Id = id;
-			//			user.Nombre = nombre;
-			//			user.Password = contra;
-			//			lista.Add(user);
-			//		}
-			//	}
-			//	return lista;
-			//}
+			PUsuario pers = new PUsuario();
+			SQLiteCommand cmd = new SQLiteCommand() {
+				Connection = conexion,
+				CommandText = $"SELECT {pers.Campos()} " +
+							 $"FROM {pers.Tabla()}"
+			};
+			var dr = cmd.ExecuteReader();
+			var obj = new CUsuario();
+			while (pers.Cargar(obj, dr)) {
+				lista.Add(obj);
+				obj = new CUsuario();
+			}
 			return lista;
 		}
 	}
