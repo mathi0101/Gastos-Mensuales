@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-using System.Data.SQLite;
 using ConexionDB;
+using System.Data.SQLite;
 
-namespace Administración_de_gastos.Clases {
+namespace Usuario.Clases {
 
 	public class PUsuario {
 
@@ -20,8 +20,9 @@ namespace Administración_de_gastos.Clases {
 																			{ "password",2 },
 																			{ "nombre",3 },
 																			{ "apellido",4 },
-																			{ "fecha_nacimiento",5 },
-																			{ "fecha_registro",6 } };
+																			{ "mail",5},
+																			{ "fecha_nacimiento",6 },
+																			{ "fecha_registro",7 } };
 
 		#endregion Atributos
 
@@ -32,10 +33,10 @@ namespace Administración_de_gastos.Clases {
 
 		#endregion Constructor
 
-		#region ABE
+		#region DML
 
 		public bool Agregar(CUsuario obj) {
-			SQLiteCommand cmd = new SQLiteCommand() {
+			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = $"INSERT INTO {Tabla()} ({CamposAgregar()}) VALUES ({AgregarValores(obj)})"
 			};
@@ -44,7 +45,7 @@ namespace Administración_de_gastos.Clases {
 		}
 
 		public bool Modificar(CUsuario obj) {
-			SQLiteCommand cmd = new SQLiteCommand() {
+			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = $"UPDATE {Tabla()} " +
 							  $"SET {AgregarVariables(obj)} " +
@@ -55,7 +56,7 @@ namespace Administración_de_gastos.Clases {
 		}
 
 		public bool Eliminar(CUsuario obj) {
-			SQLiteCommand cmd = new SQLiteCommand() {
+			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = $"DELETE FROM {Tabla()} WHERE {CndUser(obj)}"
 			};
@@ -63,52 +64,56 @@ namespace Administración_de_gastos.Clases {
 			return cmd.ExecuteNonQuery() > 0;
 		}
 
-		public bool Existe(CUsuario obj) {
-			SQLiteCommand cmd = new SQLiteCommand() {
-				Connection = conexion,
-				CommandText = $"SELECT {Campos()} " +
-							  $"FROM {Tabla()} " +
-							  $"WHERE {CndUser(obj)}"
-			};
-			var registros = Convert.ToInt32(cmd.ExecuteScalar());
-			return registros > 0;
-		}
-
-		#endregion ABE
+		#endregion DML
 
 		#region Inicio Sesion
 
-		internal bool IniciaSesion(CUsuario obj) {
-			SQLiteCommand cmd = new SQLiteCommand() {
+		public bool IniciaSesion(CUsuario obj) {
+			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = $"SELECT {Campos()} " +
 							  $"FROM {Tabla()} " +
 							  $"WHERE {CndUser(obj)} AND {CndPass(obj)}"
 			};
-			var registros = Convert.ToInt32(cmd.ExecuteScalar());
-			return registros > 0;
+			return cmd.ExecuteExists();
 		}
 
 		#endregion Inicio Sesion
 
+		//Base a objecto
+
 		#region Recuperar
 
-		public bool Recuperar(CUsuario obj) {
-			SQLiteCommand cmd = new SQLiteCommand() {
+		public bool Existe(CUsuario obj) {
+			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = $"SELECT {Campos()} " +
 							  $"FROM {Tabla()} " +
 							  $"WHERE {CndUser(obj)}"
 			};
-			return Cargar(obj, cmd.ExecuteReader());
+			//var registros = Convert.ToInt32(cmd.ExecuteScalar());
+			return cmd.ExecuteExists();
+		}
+
+		public bool Recuperar(CUsuario obj) {
+			Command cmd = new Command() {
+				Connection = conexion,
+				CommandText = $"SELECT {Campos()} " +
+							  $"FROM {Tabla()} " +
+							  $"WHERE {CndUser(obj)}"
+			};
+			var result = cmd.ExecuteSelect<CUsuario>(Cargar);
+			obj = result != null ? (CUsuario)result : obj;
+			return result != null;
 		}
 
 		#endregion Recuperar
 
 		#region Cargar
 
-		public bool Cargar(CUsuario obj, SQLiteDataReader dr) {
-			bool salida = false;
+		public object Cargar(CUsuario obj, SQLiteDataReader dr) {
+			obj.Inicializar();
+			obj.Instanciar();
 			if (dr.Read()) {
 				if (!dr.IsDBNull(col["id"])) {
 					obj.Id = dr.GetInt32(col["id"]);
@@ -125,18 +130,22 @@ namespace Administración_de_gastos.Clases {
 				if (!dr.IsDBNull(col["apellido"])) {
 					obj.Apellido = dr.GetString(col["apellido"]);
 				}
+				if (!dr.IsDBNull(col["mail"])) {
+					obj.Mail = dr.GetString(col["mail"]);
+				}
 				if (!dr.IsDBNull(col["fecha_nacimiento"])) {
 					obj.Nacimiento = DateTime.Parse(dr.GetString(col["fecha_nacimiento"]));
 				}
 				if (!dr.IsDBNull(col["fecha_registro"])) {
 					obj.FechaRegistro = DateTime.Parse(dr.GetString(col["fecha_registro"]));
 				}
-				salida = true;
 			}
-			return salida;
+			return null;
 		}
 
 		#endregion Cargar
+
+		// BASE DE DATOS
 
 		#region Campos
 
@@ -145,6 +154,7 @@ namespace Administración_de_gastos.Clases {
 							"password, " +
 							"nombre, " +
 							"apellido, " +
+							"mail," +
 							"fecha_nacimiento, " +
 							"fecha_registro";
 			return campos;
@@ -156,6 +166,7 @@ namespace Administración_de_gastos.Clases {
 							"password AS us_password, " +
 							"nombre AS us_nombre, " +
 							"apellido AS us_apellido, " +
+							"mail AS us_mail, " +
 							"fecha_nacimiento AS us_nacimiento, " +
 							"fecha_registro AS us_registro";
 			return campos;
@@ -163,15 +174,18 @@ namespace Administración_de_gastos.Clases {
 
 		#endregion Campos
 
+		//Objeto a base
+
 		#region Valores
 
 		private string AgregarValores(CUsuario obj) {
-			string values = $"{FuncionesBD.ToBD(obj.User)}, " +
-							$"{FuncionesBD.ToBD(obj.Password)}, " +
-							$"{FuncionesBD.ToBD(obj.Nombre)}, " +
-							$"{FuncionesBD.ToBD(obj.Apellido)}, " +
-							$"{FuncionesBD.ToBD(obj.Nacimiento)}, " +
-							$"{FuncionesBD.ToBD(obj.FechaRegistro)} ";
+			string values = $"{FuncionesBD.StringToBD(obj.User)}, " +
+							$"{FuncionesBD.StringToBD(obj.Password)}, " +
+							$"{FuncionesBD.StringToBD(obj.Nombre)}, " +
+							$"{FuncionesBD.StringToBD(obj.Apellido)}, " +
+							$"{FuncionesBD.StringToBD(obj.Mail)}, " +
+							$"{FuncionesBD.FechaToBD(obj.Nacimiento)}, " +
+							$"{FuncionesBD.FechaYHoraToBD(obj.FechaRegistro)} ";
 			return values;
 		}
 
@@ -180,12 +194,13 @@ namespace Administración_de_gastos.Clases {
 		#region Variables
 
 		private string AgregarVariables(CUsuario obj) {
-			string values = $"user= {FuncionesBD.ToBD(obj.User)}, " +
-							$"password= {FuncionesBD.ToBD(obj.Password)}, " +
-							$"nombre= {FuncionesBD.ToBD(obj.Nombre)}, " +
-							$"apellido= {FuncionesBD.ToBD(obj.Apellido)}, " +
-							$"fecha_nacimiento= {FuncionesBD.ToBD(obj.Nacimiento)}, " +
-							$"fecha_registro= {FuncionesBD.ToBD(obj.FechaRegistro)} ";
+			string values = $"user= {FuncionesBD.StringToBD(obj.User)}, " +
+							$"password= {FuncionesBD.StringToBD(obj.Password)}, " +
+							$"nombre= {FuncionesBD.StringToBD(obj.Nombre)}, " +
+							$"apellido= {FuncionesBD.StringToBD(obj.Apellido)}, " +
+							$"mail= {FuncionesBD.StringToBD(obj.Mail)}, " +
+							$"fecha_nacimiento= {FuncionesBD.DataTimeNullableToBD(obj.Nacimiento)}, " +
+							$"fecha_registro= {FuncionesBD.DataTimeNullableToBD(obj.FechaRegistro)} ";
 			return values;
 		}
 
@@ -195,11 +210,13 @@ namespace Administración_de_gastos.Clases {
 
 		private object CndId(CUsuario obj) => $"id= {obj.Id}";
 
-		private string CndUser(CUsuario obj) => $"user= {FuncionesBD.ToBD(obj.User)}";
+		private string CndUser(CUsuario obj) => $"user= {FuncionesBD.StringToBD(obj.User)}";
 
-		private object CndPass(CUsuario obj) => $"password= {FuncionesBD.ToBD(obj.Password)}";
+		private object CndPass(CUsuario obj) => $"password= {FuncionesBD.StringToBD(obj.Password)}";
 
 		#endregion Condiciones
+
+		// table
 
 		#region Tablas
 
@@ -208,5 +225,13 @@ namespace Administración_de_gastos.Clases {
 		}
 
 		#endregion Tablas
+
+		#region Orden
+
+		public string Orden() {
+			return " id ";
+		}
+
+		#endregion Orden
 	}
 }

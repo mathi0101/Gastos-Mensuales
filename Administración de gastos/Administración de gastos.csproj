@@ -137,10 +137,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\Usuario\CUsuario.cs" />
-    <Compile Include="Clases\Usuario\LUsuario.cs" />
-    <Compile Include="Clases\Usuario\PUsuario.cs" />
-    <Compile Include="Clases\Encriptacion.cs" />
     <Compile Include="Forms\Inicio Programa\FormSplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +155,12 @@
     <Compile Include="Forms\Inicio Sesion\FormRegister.Designer.cs">
       <DependentUpon>FormRegister.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Programa Principal\FormPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Programa Principal\FormPrincipal.Designer.cs">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Resources\Loading Screen.png" />
@@ -170,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Inicio Sesion\FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Programa Principal\FormPrincipal.resx">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -211,6 +216,10 @@
     <ProjectReference Include="..\ConexionDB\ConexionDB.csproj">
       <Project>{6EA7ED33-E776-4F11-88DB-7AA7C0A14E4E}</Project>
       <Name>ConexionDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Usuario\Usuario.csproj">
+      <Project>{9B457231-7B23-4652-977F-B8BFE2989CCD}</Project>
+      <Name>Usuario</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

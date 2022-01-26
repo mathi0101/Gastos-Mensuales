@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Usuario.Encrypt;
 
-namespace Administración_de_gastos.Clases {
+namespace Usuario.Clases {
 
 	public class CUsuario {
 
@@ -15,12 +16,11 @@ namespace Administración_de_gastos.Clases {
 		public string Password { get; set; }
 		public string Nombre { get; set; }
 		public string Apellido { get; set; }
+		public string Mail { get; set; }
 		public DateTime? Nacimiento { get; set; }
 		public DateTime? FechaRegistro { get; set; }
 
-		public string ClavePlana {
-			get => Encriptacion.DesEncriptar(Password);
-		}
+		public string NombreCompleto { get => Nombre + " " + Apellido; }
 
 		#endregion Propiedades
 
@@ -39,17 +39,18 @@ namespace Administración_de_gastos.Clases {
 
 		#region Inicializar e Instanciar
 
-		private void Instanciar() {
+		public void Instanciar() {
 			Nacimiento = null;
 			FechaRegistro = null;
 		}
 
-		private void Inicializar() {
+		public void Inicializar() {
 			Id = 0;
 			User = String.Empty;
 			Password = String.Empty;
 			Nombre = String.Empty;
 			Apellido = String.Empty;
+			Mail = String.Empty;
 		}
 
 		#endregion Inicializar e Instanciar
@@ -101,5 +102,13 @@ namespace Administración_de_gastos.Clases {
 		}
 
 		#endregion String
+
+		#region Publicos
+
+		public string ClavePlana() {
+			return Encriptacion.DesEncriptar(Password);
+		}
+
+		#endregion Publicos
 	}
 }

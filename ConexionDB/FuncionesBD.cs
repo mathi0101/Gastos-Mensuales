@@ -8,7 +8,7 @@ namespace ConexionDB {
 
 	public static class FuncionesBD {
 
-		public static object ToBD(string texto) {
+		public static string StringToBD(string texto) {
 			if (texto == "") {
 				return "NULL";
 			} else {
@@ -16,12 +16,30 @@ namespace ConexionDB {
 			}
 		}
 
-		public static object ToBD(DateTime? dt) {
+		public static string DataTimeNullableToBD(DateTime? dt) {
 			if (dt == null) {
 				return "NULL";
 			} else {
 				return $"'{dt.ToString()}'";
 			}
+		}
+
+		public static string DataTimeToBD(DateTime dt) {
+			return $"'{dt.ToString()}'";
+		}
+
+		public static string FechaToBD(DateTime? dt) {
+			if (dt == null) {
+				return "NULL";
+			}
+			return $"'{((DateTime)dt).ToString("dd-MM-yyyy")}'";
+		}
+
+		public static string FechaYHoraToBD(DateTime? dt) {
+			if (dt == null) {
+				return "NULL";
+			}
+			return $"'{((DateTime)dt).ToString("dd-MM-yyyy HH:mm:ss")}'";
 		}
 	}
 }

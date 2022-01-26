@@ -1,4 +1,5 @@
 ﻿using Administración_de_gastos.Forms.Inicio_Programa;
+using Administración_de_gastos.Forms.Programa_Principal;
 using ConexionDB;
 using ConexionDB.Database;
 using System;
@@ -29,7 +30,13 @@ namespace Administración_de_gastos {
 			FormSplashScreen start = new FormSplashScreen();
 			Application.Run(start);
 			if (start.todoOK) {
-				Application.Run(new FormLogin());
+				start.Close();
+				FormLogin login = new FormLogin();
+				Application.Run(login);
+				if (login.LoginUser != null) {
+					login.Close();
+					Application.Run(new FormPrincipal(login.LoginUser));
+				}
 			}
 
 			// End of program

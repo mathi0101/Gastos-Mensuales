@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Administración_de_gastos.Clases {
+namespace Usuario.Encrypt {
 
 	public static class Encriptacion {
 

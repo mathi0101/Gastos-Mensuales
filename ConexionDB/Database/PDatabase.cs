@@ -25,22 +25,30 @@ namespace ConexionDB.Database {
 		#region Crear
 
 		public void CrearBase() {
-			SQLiteCommand command = new SQLiteCommand() {
+			Command cmd = new Command() {
 				Connection = conexion,
-				CommandText = @"CREATE TABLE Usuarios(
-									id    INTEGER NOT NULL UNIQUE,
-									user  TEXT NOT NULL UNIQUE,
-									password  TEXT NOT NULL,
-									nombre    TEXT,
-									apellido  TEXT,
-									fecha_nacimiento  TEXT,
-									fecha_registro    TEXT NOT NULL,
-									PRIMARY KEY(id AUTOINCREMENT)
-								)"
+				CommandText = TablaUsuarios()
 			};
-			command.ExecuteNonQuery();
+			cmd.ExecuteNonQuery();
 		}
 
 		#endregion Crear
+
+		#region Tablas
+
+		private string TablaUsuarios() {
+			return @"CREATE TABLE Usuarios(
+					id    INTEGER NOT NULL UNIQUE,
+					user  TEXT NOT NULL UNIQUE,
+					password  TEXT NOT NULL,
+					nombre    TEXT,
+					apellido  TEXT,
+					mail      TEXT,
+					fecha_nacimiento  TEXT,
+					fecha_registro    TEXT NOT NULL,
+					PRIMARY KEY(id AUTOINCREMENT)) ";
+		}
+
+		#endregion Tablas
 	}
 }

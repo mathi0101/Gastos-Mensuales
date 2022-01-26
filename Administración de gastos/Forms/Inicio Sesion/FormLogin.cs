@@ -7,12 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Administración_de_gastos.Clases;
+using Usuario.Clases;
 using ConexionDB.Database;
+using Usuario.Encrypt;
+using Administración_de_gastos.Forms.Inicio_Sesion;
+using Administración_de_gastos.Forms.Programa_Principal;
 
 namespace Administración_de_gastos {
 
 	public partial class FormLogin : Form {
+
+		#region Propiedades
+
+		public CUsuario LoginUser = null;
+
+		#endregion Propiedades
 
 		#region Formulario
 
@@ -22,27 +31,37 @@ namespace Administración_de_gastos {
 
 		private void FormLogin_Load(object sender, EventArgs e) {
 			List<CUsuario> users = new LUsuario().RecuperarTodos();
-			var x = new AutoCompleteStringCollection();
-			x.AddRange(users.Select(u => u.User).ToArray());
-			txtUser.AutoCompleteCustomSource = x;
+			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
+			data.AddRange(users.Select(u => u.User).ToArray());
+			txtUser.AutoCompleteCustomSource = data;
+			txtUser.Text = users[0].User;
+			txtPassword.Focus();
 		}
 
 		private void FormLogin_FormClosing(object sender, FormClosingEventArgs e) {
-			//Database.BorrarBase(true);
-			//Application.Exit();
 		}
 
 		#endregion Formulario
 
 		#region Eventos
 
+		#region Click
+
 		private void btnLogin_Click(object sender, EventArgs e) {
-			Login();
+			if (CondicionesLogin()) {
+				Login();
+			}
 		}
 
-		private void btnNewUser_Click(object sender, EventArgs e) {
-			Register();
+		private void btnRegister_Click(object sender, EventArgs e) {
+			FormRegister form = new FormRegister();
+			form.ShowDialog();
+			LimpiarCampos();
 		}
+
+		#endregion Click
+
+		#region KeyPress
 
 		private void txtUser_KeyPress(object sender, KeyPressEventArgs e) {
 			if (!char.IsControl(e.KeyChar)
@@ -57,6 +76,10 @@ namespace Administración_de_gastos {
 		}
 
 		private void txtPassword_KeyPress(object sender, KeyPressEventArgs e) {
+			if (e.KeyChar == (char)13) {
+				e.Handled = true;
+				btnLogin_Click(null, null);
+			}
 			if (!char.IsControl(e.KeyChar)
 			   & !char.IsDigit(e.KeyChar) & !char.IsLetter(e.KeyChar)
 			   & e.KeyChar != '-' & e.KeyChar != '_' & e.KeyChar != '!'
@@ -68,6 +91,8 @@ namespace Administración_de_gastos {
 			return;
 		}
 
+		#endregion KeyPress
+
 		#endregion Eventos
 
 		#region Privadas
@@ -77,61 +102,42 @@ namespace Administración_de_gastos {
 			txtPassword.Text = "";
 		}
 
-		private void Login() {
-			if (txtPassword.Text.Length == 0) {
-				MessageBox.Show("Tu contraseña debe contener al menos 1 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				txtPassword.Focus();
-				return;
+		private bool CondicionesLogin() {
+			bool salida = true;
+			if (txtPassword.Text == "" && txtUser.Text == "") {
+				return false;
 			}
+			if (txtUser.Text.Length < 3) {
+				MessageBox.Show("Tu nombre de usuario debe contener al menos 3 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				txtPassword.Focus();
+				salida = false;
+			}
+			if (txtPassword.Text.Length < 4) {
+				MessageBox.Show("Tu contraseña debe contener al menos 4 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				txtPassword.Focus();
+				salida = false;
+			}
+			return salida;
+		}
+
+		private void Login() {
 			CUsuario user = new CUsuario() {
 				User = txtUser.Text,
 				Password = Encriptacion.Encriptar(txtPassword.Text)
 			};
 			if (user.Existe()) {
 				if (user.IniciaSesion()) {
-					MessageBox.Show("Has iniciado sesión correctamente!\nBienvenido", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					//MessageBox.Show("Has iniciado sesión correctamente!\nBienvenido", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					user.Recuperar();
+					LoginUser = user;
+					this.Dispose();
 				} else {
 					MessageBox.Show("Contraseña Incorrecta", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
 					txtPassword.Focus();
 				}
 			} else {
 				MessageBox.Show("Este usuario no existe\nCrea tu usuario con el botón Registrar!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				btnNewUser.Focus();
-			}
-		}
-
-		private void Register() {
-			string user = txtUser.Text;
-			string pass = txtPassword.Text;
-
-			CUsuario obj = new CUsuario(user);
-
-			if (obj.Existe()) {
-				MessageBox.Show("Este usuario ya se encuentra registrado.\nInicia sesión o elige otro usuario", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				LimpiarCampos();
-				return;
-			} else {
-				if (user != "") {
-					if (pass.Length >= 1) {
-						string contraEncriptada = Encriptacion.Encriptar(pass);
-						CUsuario objs = new CUsuario();
-						objs.User = user;
-						objs.Password = contraEncriptada;
-						objs.FechaRegistro = DateTime.Now;
-						if (objs.Agregar()) {
-							MessageBox.Show("Tu cuenta ha sido añadida con éxito.\nYa puedes acceder a la aplicación", "Bienvenido!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-							LimpiarCampos();
-						} else {
-							MessageBox.Show("No se ha podido agregar tu usuario a la base de datos.\nVerifica tus datos y vuelve a intentarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-						}
-					} else {
-						MessageBox.Show("Tu contraseña debe contener al menos 1 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-						txtPassword.Focus();
-					}
-				} else {
-					MessageBox.Show("Debes completar los campos vacíos para poder crear tu cuenta.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-					txtUser.Focus();
-				}
+				btnRegister.Focus();
 			}
 		}
 
