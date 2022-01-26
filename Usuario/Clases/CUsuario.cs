@@ -95,6 +95,13 @@ namespace Usuario.Clases {
 
 		#endregion Persistencia
 
+		#region Cargar
+
+		public void Cargar() {
+		}
+
+		#endregion Cargar
+
 		#region String
 
 		public override string ToString() {

@@ -28,7 +28,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 
 			if (Database.Existe()) {
 				label.Text = "Cargando Base de Datos...";
-				Conexion.conexion.Open(); // Abrimos conexion
+				Database.Conectar();
 				todoOK = true;
 			} else {
 				if (Database.CrearBase()) {

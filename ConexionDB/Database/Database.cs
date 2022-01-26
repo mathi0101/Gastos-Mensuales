@@ -35,15 +35,27 @@ namespace ConexionDB.Database {
 
 		#endregion Propiedades
 
-		#region Generales
+		#region Conectar / Desconectar
+
+		public static void Conectar() {
+			Conexion.conexion.ChangePassword("holakaze");
+			Conexion.conexion.Open(); // Abrimos conexion despues de crear la base
+		}
+
+		public static void Desconectar() {
+			Conexion.conexion.Close();
+		}
+
+		#endregion Conectar / Desconectar
+
+		#region DML
 
 		public static bool CrearBase() {
 			if (!Directory.Exists(RutaDeCarpeta)) {
 				Directory.CreateDirectory(RutaDeCarpeta);
 			}
 			SQLiteConnection.CreateFile(RutaReal);
-
-			Conexion.conexion.Open(); // Abrimos conexion despues de crear la base
+			Conectar();
 			PDatabase pers = new PDatabase();
 
 			bool salida = true; ;
@@ -86,7 +98,7 @@ namespace ConexionDB.Database {
 			return salida;
 		}
 
-		#endregion Generales
+		#endregion DML
 
 		#region Públicas
 
