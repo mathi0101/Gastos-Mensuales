@@ -25,11 +25,12 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		/// </summary>
 		private void InitializeComponent() {
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.toolStripStatusUsuario = new System.Windows.Forms.ToolStripStatusLabel();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.informaciónPersonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ingresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gastosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripStatusUsuario = new System.Windows.Forms.ToolStripStatusLabel();
+			this.gestiónDeTarjetasBancariasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -43,6 +44,12 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			this.statusStrip1.Size = new System.Drawing.Size(1228, 22);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusStrip1";
+			// 
+			// toolStripStatusUsuario
+			// 
+			this.toolStripStatusUsuario.Name = "toolStripStatusUsuario";
+			this.toolStripStatusUsuario.Size = new System.Drawing.Size(47, 17);
+			this.toolStripStatusUsuario.Text = "Usuario";
 			// 
 			// menuStrip1
 			// 
@@ -59,9 +66,11 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			// 
 			// informaciónPersonalToolStripMenuItem
 			// 
+			this.informaciónPersonalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestiónDeTarjetasBancariasToolStripMenuItem});
 			this.informaciónPersonalToolStripMenuItem.Name = "informaciónPersonalToolStripMenuItem";
-			this.informaciónPersonalToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
-			this.informaciónPersonalToolStripMenuItem.Text = "Información Personal";
+			this.informaciónPersonalToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+			this.informaciónPersonalToolStripMenuItem.Text = "Personal";
 			// 
 			// ingresosToolStripMenuItem
 			// 
@@ -75,11 +84,12 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			this.gastosToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
 			this.gastosToolStripMenuItem.Text = "Gastos";
 			// 
-			// toolStripStatusUsuario
+			// gestiónDeTarjetasBancariasToolStripMenuItem
 			// 
-			this.toolStripStatusUsuario.Name = "toolStripStatusUsuario";
-			this.toolStripStatusUsuario.Size = new System.Drawing.Size(47, 17);
-			this.toolStripStatusUsuario.Text = "Usuario";
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Name = "gestiónDeTarjetasBancariasToolStripMenuItem";
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Text = "Gestión de tarjetas bancarias";
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeTarjetasBancariasToolStripMenuItem_Click);
 			// 
 			// FormPrincipal
 			// 
@@ -110,5 +120,6 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		private System.Windows.Forms.ToolStripMenuItem informaciónPersonalToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem ingresosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem gastosToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem gestiónDeTarjetasBancariasToolStripMenuItem;
 	}
 }
