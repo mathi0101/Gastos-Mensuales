@@ -38,8 +38,8 @@ namespace ConexionDB.Database {
 		#region Conectar / Desconectar
 
 		public static void Conectar() {
-			Conexion.conexion.ChangePassword("holakaze");
 			Conexion.conexion.Open(); // Abrimos conexion despues de crear la base
+									  //Conexion.conexion.ChangePassword("holakaze");
 		}
 
 		public static void Desconectar() {
