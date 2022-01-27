@@ -251,6 +251,8 @@ namespace Administración_de_gastos.Forms.Inicio_Sesion
 			this.Controls.Add(this.groupBox1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 			this.Name = "FormRegister";
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Registro de usuario";
 			this.Load += new System.EventHandler(this.FormRegister_Load);

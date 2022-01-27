@@ -95,7 +95,7 @@ namespace Usuario.Clases {
 			return cmd.ExecuteExists();
 		}
 
-		public bool Recuperar(CUsuario obj) {
+		public bool Recuperar(ref CUsuario obj) {
 			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = $"SELECT {Campos()} " +

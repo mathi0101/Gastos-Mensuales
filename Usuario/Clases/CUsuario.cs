@@ -79,8 +79,12 @@ namespace Usuario.Clases {
 
 		public bool Recuperar() {
 			PUsuario pers = new PUsuario();
-
-			return pers.Recuperar(this);
+			var obj = this;
+			if (pers.Recuperar(ref obj)) {
+				Cargar(obj);
+				return true;
+			}
+			return false;
 		}
 
 		public bool Existe() {
@@ -97,7 +101,19 @@ namespace Usuario.Clases {
 
 		#region Cargar
 
-		public void Cargar() {
+		public void Cargar(CUsuario obj) {
+			Instanciar();
+			Inicializar();
+
+			Id = obj.Id;
+			User = obj.User;
+			Password = obj.Password;
+			Nombre = obj.Nombre;
+			Apellido = obj.Apellido;
+			Mail = obj.Mail;
+
+			Nacimiento = obj.Nacimiento;
+			FechaRegistro = obj.FechaRegistro;
 		}
 
 		#endregion Cargar
@@ -105,7 +121,7 @@ namespace Usuario.Clases {
 		#region String
 
 		public override string ToString() {
-			return $"{User}: {Nombre} {Apellido}";
+			return $"{Id}: {User}";
 		}
 
 		#endregion String

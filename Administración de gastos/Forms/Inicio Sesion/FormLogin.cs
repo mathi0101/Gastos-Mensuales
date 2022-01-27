@@ -12,6 +12,7 @@ using ConexionDB.Database;
 using Usuario.Encrypt;
 using Administración_de_gastos.Forms.Inicio_Sesion;
 using Administración_de_gastos.Forms.Programa_Principal;
+using System.Configuration;
 
 namespace Administración_de_gastos {
 
@@ -30,12 +31,7 @@ namespace Administración_de_gastos {
 		}
 
 		private void FormLogin_Load(object sender, EventArgs e) {
-			List<CUsuario> users = new LUsuario().RecuperarTodos();
-			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
-			data.AddRange(users.Select(u => u.User).ToArray());
-			txtUser.AutoCompleteCustomSource = data;
-			txtUser.Text = users[0].User;
-			txtPassword.Focus();
+			CargarUsuariosRegistrados();
 		}
 
 		private void FormLogin_FormClosing(object sender, FormClosingEventArgs e) {
@@ -97,6 +93,21 @@ namespace Administración_de_gastos {
 
 		#region Privadas
 
+		private void CargarUsuariosRegistrados() {
+			List<CUsuario> users = new LUsuario().RecuperarTodos();
+			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
+			data.AddRange(users.Select(u => u.User).ToArray());
+			txtUser.AutoCompleteCustomSource = data;
+
+			string lastUser = ConfigurationManager.AppSettings["lastUser"];
+			if (lastUser != null) {
+				txtUser.Text = lastUser;
+				txtPassword.Select();
+			} else {
+				txtUser.Select();
+			}
+		}
+
 		private void LimpiarCampos() {
 			txtUser.Text = "";
 			txtPassword.Text = "";
@@ -130,6 +141,7 @@ namespace Administración_de_gastos {
 					//MessageBox.Show("Has iniciado sesión correctamente!\nBienvenido", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					user.Recuperar();
 					LoginUser = user;
+					GuardarUltimoUserLogueado();
 					this.Dispose();
 				} else {
 					MessageBox.Show("Contraseña Incorrecta", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -139,6 +151,14 @@ namespace Administración_de_gastos {
 				MessageBox.Show("Este usuario no existe\nCrea tu usuario con el botón Registrar!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				btnRegister.Focus();
 			}
+		}
+
+		private void GuardarUltimoUserLogueado() {
+			Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			config.AppSettings.Settings.Remove("lastUser");
+			config.AppSettings.Settings.Add(new KeyValueConfigurationElement("lastUser", LoginUser.User));
+			config.Save(ConfigurationSaveMode.Modified);
+			ConfigurationManager.RefreshSection("AppSettings");
 		}
 
 		#endregion Privadas

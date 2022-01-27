@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ConexionDB {
 
 	public class Conexion {
-		private static string StringFromAppConfig { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
+		//private static string StringFromAppConfig { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
 
 		private static string StringCreate { get => $"Data Source={Database.Database.RutaReal};Version=3;"; }
 

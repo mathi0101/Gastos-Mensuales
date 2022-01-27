@@ -21,11 +21,11 @@ namespace Administración_de_gastos {
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			config.ConnectionStrings.ConnectionStrings.Remove("cadena");
-			config.ConnectionStrings.ConnectionStrings.Add(new ConnectionStringSettings("cadena", $"Data Source={Database.RutaReal};Version=3;"));
-			config.Save(ConfigurationSaveMode.Modified);
-			ConfigurationManager.RefreshSection("connectionStrings");
+			//Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			//config.ConnectionStrings.ConnectionStrings.Remove("cadena");
+			//config.ConnectionStrings.ConnectionStrings.Add(new ConnectionStringSettings("cadena", $"Data Source={Database.RutaReal};Version=3;"));
+			//config.Save(ConfigurationSaveMode.Modified);
+			//ConfigurationManager.RefreshSection("connectionStrings");
 
 			FormSplashScreen start = new FormSplashScreen();
 			Application.Run(start);

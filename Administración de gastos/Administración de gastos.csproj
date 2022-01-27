@@ -93,6 +93,9 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -161,6 +164,12 @@
     <Compile Include="Forms\Programa Principal\FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Programa Principal\Personal\FormGestionTarjetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Programa Principal\Personal\FormGestionTarjetas.Designer.cs">
+      <DependentUpon>FormGestionTarjetas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Resources\Loading Screen.png" />
@@ -221,6 +230,9 @@
       <Project>{9B457231-7B23-4652-977F-B8BFE2989CCD}</Project>
       <Name>Usuario</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

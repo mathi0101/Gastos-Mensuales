@@ -24,13 +24,14 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusUsuario = new System.Windows.Forms.ToolStripStatusLabel();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.informaciónPersonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.gestiónDeTarjetasBancariasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ingresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gastosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.gestiónDeTarjetasBancariasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -72,6 +73,13 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			this.informaciónPersonalToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
 			this.informaciónPersonalToolStripMenuItem.Text = "Personal";
 			// 
+			// gestiónDeTarjetasBancariasToolStripMenuItem
+			// 
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Name = "gestiónDeTarjetasBancariasToolStripMenuItem";
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Text = "Gestión de tarjetas bancarias";
+			this.gestiónDeTarjetasBancariasToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeTarjetasBancariasToolStripMenuItem_Click);
+			// 
 			// ingresosToolStripMenuItem
 			// 
 			this.ingresosToolStripMenuItem.Name = "ingresosToolStripMenuItem";
@@ -84,13 +92,6 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			this.gastosToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
 			this.gastosToolStripMenuItem.Text = "Gastos";
 			// 
-			// gestiónDeTarjetasBancariasToolStripMenuItem
-			// 
-			this.gestiónDeTarjetasBancariasToolStripMenuItem.Name = "gestiónDeTarjetasBancariasToolStripMenuItem";
-			this.gestiónDeTarjetasBancariasToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-			this.gestiónDeTarjetasBancariasToolStripMenuItem.Text = "Gestión de tarjetas bancarias";
-			this.gestiónDeTarjetasBancariasToolStripMenuItem.Click += new System.EventHandler(this.gestiónDeTarjetasBancariasToolStripMenuItem_Click);
-			// 
 			// FormPrincipal
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -98,6 +99,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			this.ClientSize = new System.Drawing.Size(1228, 603);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.menuStrip1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.IsMdiContainer = true;
 			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "FormPrincipal";
