@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Administración_de_gastos.Clases.Log;
+using Administración_de_gastos.Forms.Programa_Principal.Personal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 
 		#region Propiedades
 
+		private LogForms log;
 		private CUsuario usuarioLogin;
 
 		#endregion Propiedades
@@ -28,6 +31,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 
 		private void FormPrincipal_Load(object sender, EventArgs e) {
 			CargarInfoStatus();
+			log = new LogForms(this);
 		}
 
 		#endregion Formulario
@@ -47,6 +51,8 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		#region Personal
 
 		private void gestiónDeTarjetasBancariasToolStripMenuItem_Click(object sender, EventArgs e) {
+			//new FormGestionTarjetas() { MdiParent = this }.Show();
+			log.Open(new FormGestionTarjetas());
 		}
 
 		#endregion Personal

@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Administración_de_gastos.Forms.Programa_Principal.Personal {
+
 	public partial class FormGestionTarjetas : Form {
+
 		public FormGestionTarjetas() {
 			InitializeComponent();
 		}
