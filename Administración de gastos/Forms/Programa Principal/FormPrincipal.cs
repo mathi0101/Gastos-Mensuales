@@ -47,6 +47,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		#region Personal
 
 		private void gestiónDeTarjetasBancariasToolStripMenuItem_Click(object sender, EventArgs e) {
+			;
 		}
 
 		#endregion Personal
