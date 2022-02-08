@@ -19,6 +19,7 @@ namespace Usuario.Clases {
 		public string Mail { get; set; }
 		public DateTime? Nacimiento { get; set; }
 		public DateTime? FechaRegistro { get; set; }
+		public DateTime? UltimoLogin { get; set; }
 
 		public string NombreCompleto { get => Nombre + " " + Apellido; }
 
@@ -42,6 +43,7 @@ namespace Usuario.Clases {
 		public void Instanciar() {
 			Nacimiento = null;
 			FechaRegistro = null;
+			UltimoLogin = null;
 		}
 
 		public void Inicializar() {
@@ -91,6 +93,17 @@ namespace Usuario.Clases {
 		public bool IniciaSesion() {
 			PUsuario pers = new PUsuario();
 			return pers.IniciaSesion(this);
+		}
+
+		public bool ModificarUltimoLogin(DateTime nuevoLogin) {
+			this.UltimoLogin = nuevoLogin;
+			PUsuario pers = new PUsuario();
+			return pers.ModificarUltimoLogin(this);
+		}
+
+		public bool RecuperarUltimoUsuarioLogueado() {
+			PUsuario pers = new PUsuario();
+			return pers.RecuperarUltimoUsuarioLogueado(this);
 		}
 
 		#endregion Persistencia

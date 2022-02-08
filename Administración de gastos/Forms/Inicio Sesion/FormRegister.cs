@@ -16,7 +16,7 @@ namespace Administración_de_gastos.Forms.Inicio_Sesion {
 
 		#region Propiedades
 
-		private const int LARGO_CONTRASEÑA_MIN = 4;
+		private const int LARGO_CONTRASEÑA_MIN = 1;
 		private const int LARGO_CONTRASEÑA_MAX = 8;
 
 		#endregion Propiedades
@@ -142,7 +142,7 @@ namespace Administración_de_gastos.Forms.Inicio_Sesion {
 
 		private void ContraseniasDistintas() {
 			lblPass2.ForeColor = Color.Red;
-			lblPass2.Font = new Font(lblPass.Font, FontStyle.Bold);
+			//lblPass2.Font = new Font(lblPass.Font, FontStyle.Bold);
 			//MessageBox.Show("Las Contraseñas no coinciden.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			//lblPass2.Focus();
 		}
@@ -171,8 +171,7 @@ namespace Administración_de_gastos.Forms.Inicio_Sesion {
 				return;
 			}
 			if (CondicionesRegistrar()) {
-				string contraEncriptada = Encriptacion.Encriptar(obj.Password);
-				obj.Password = contraEncriptada;
+				obj.Password = Encriptacion.Encriptar(obj.Password);
 				obj.FechaRegistro = DateTime.Now;
 				if (obj.Agregar()) {
 					MessageBox.Show("Tu cuenta ha sido añadida con éxito.\nYa puedes iniciar sesión con tu cuenta!", "Bienvenido!", MessageBoxButtons.OK, MessageBoxIcon.Information);
