@@ -34,7 +34,9 @@ namespace Administración_de_gastos {
 			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
 			data.AddRange(users.Select(u => u.User).ToArray());
 			txtUser.AutoCompleteCustomSource = data;
-			txtUser.Text = users[0].User;
+			if (users.Count > 0) {
+				txtUser.Text = users[0].User;
+			}
 			txtPassword.Focus();
 		}
 
