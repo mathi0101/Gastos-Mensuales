@@ -18,6 +18,12 @@ namespace Administración_de_gastos {
 
 	public partial class FormLogin : Form {
 
+		#region Constantes
+
+		private const int MIN_LARGO_PASSWORD = 1;
+
+		#endregion Constantes
+
 		#region Propiedades
 
 		public CUsuario LoginUser = null;
@@ -32,6 +38,15 @@ namespace Administración_de_gastos {
 
 		private void FormLogin_Load(object sender, EventArgs e) {
 			CargarUsuariosRegistrados();
+		}
+			List<CUsuario> users = new LUsuario().RecuperarTodos();
+			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
+			data.AddRange(users.Select(u => u.User).ToArray());
+			txtUser.AutoCompleteCustomSource = data;
+			if (users.Count > 0) {
+				txtUser.Text = users[0].User;
+				txtPassword.Focus();
+			}
 		}
 
 		private void FormLogin_FormClosing(object sender, FormClosingEventArgs e) {
@@ -123,8 +138,8 @@ namespace Administración_de_gastos {
 				txtPassword.Focus();
 				salida = false;
 			}
-			if (txtPassword.Text.Length < 4) {
-				MessageBox.Show("Tu contraseña debe contener al menos 4 caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			if (txtPassword.Text.Length < MIN_LARGO_PASSWORD) {
+				MessageBox.Show($"Tu contraseña debe contener al menos {MIN_LARGO_PASSWORD} caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				txtPassword.Focus();
 				salida = false;
 			}
@@ -139,6 +154,7 @@ namespace Administración_de_gastos {
 			if (user.Existe()) {
 				if (user.IniciaSesion()) {
 					//MessageBox.Show("Has iniciado sesión correctamente!\nBienvenido", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					user.ModificarUltimoLogin(DateTime.Now);
 					user.Recuperar();
 					LoginUser = user;
 					GuardarUltimoUserLogueado();

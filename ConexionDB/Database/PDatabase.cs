@@ -27,7 +27,7 @@ namespace ConexionDB.Database {
 		public void CrearBase() {
 			Command cmd = new Command() {
 				Connection = conexion,
-				CommandText = TablaUsuarios()
+				CommandText = Tablas()
 			};
 			cmd.ExecuteNonQuery();
 		}
@@ -35,6 +35,10 @@ namespace ConexionDB.Database {
 		#endregion Crear
 
 		#region Tablas
+
+		private string Tablas() {
+			return TablaUsuarios();
+		}
 
 		private string TablaUsuarios() {
 			return @"CREATE TABLE Usuarios(
@@ -46,6 +50,7 @@ namespace ConexionDB.Database {
 					mail      TEXT,
 					fecha_nacimiento  TEXT,
 					fecha_registro    TEXT NOT NULL,
+					ultimo_login      TEXT,
 					PRIMARY KEY(id AUTOINCREMENT)) ";
 		}
 

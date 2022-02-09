@@ -22,7 +22,8 @@ namespace Usuario.Clases {
 																			{ "apellido",4 },
 																			{ "mail",5},
 																			{ "fecha_nacimiento",6 },
-																			{ "fecha_registro",7 } };
+																			{ "fecha_registro",7 },
+																			{ "ultimo_login",8} };
 
 		#endregion Atributos
 
@@ -48,7 +49,7 @@ namespace Usuario.Clases {
 			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = $"UPDATE {Tabla()} " +
-							  $"SET {AgregarVariables(obj)} " +
+							  $"SET {ModificarVariables(obj)} " +
 							  $"WHERE {CndUser(obj)}"
 			};
 
@@ -66,20 +67,6 @@ namespace Usuario.Clases {
 
 		#endregion DML
 
-		#region Inicio Sesion
-
-		public bool IniciaSesion(CUsuario obj) {
-			Command cmd = new Command() {
-				Connection = conexion,
-				CommandText = $"SELECT {Campos()} " +
-							  $"FROM {Tabla()} " +
-							  $"WHERE {CndUser(obj)} AND {CndPass(obj)}"
-			};
-			return cmd.ExecuteExists();
-		}
-
-		#endregion Inicio Sesion
-
 		//Base a objecto
 
 		#region Recuperar
@@ -93,6 +80,18 @@ namespace Usuario.Clases {
 			};
 			//var registros = Convert.ToInt32(cmd.ExecuteScalar());
 			return cmd.ExecuteExists();
+		}
+
+		public bool Recuperar(CUsuario obj) {
+			Command cmd = new Command() {
+				Connection = conexion,
+				CommandText = $"SELECT {Campos()} " +
+							  $"FROM {Tabla()} " +
+							  $"WHERE {CndUser(obj)}"
+			};
+			var result = cmd.ExecuteSelect<CUsuario>(Cargar);
+			obj = result != null ? (CUsuario)result : obj;
+			return result != null;
 		}
 
 		public bool Recuperar(ref CUsuario obj) {
@@ -139,7 +138,11 @@ namespace Usuario.Clases {
 				if (!dr.IsDBNull(col["fecha_registro"])) {
 					obj.FechaRegistro = DateTime.Parse(dr.GetString(col["fecha_registro"]));
 				}
+				if (!dr.IsDBNull(col["ultimo_login"])) {
+					obj.FechaRegistro = DateTime.Parse(dr.GetString(col["ultimo_login"]));
+				}
 			}
+			return null;
 		}
 
 		#endregion Cargar
@@ -155,7 +158,8 @@ namespace Usuario.Clases {
 							"apellido, " +
 							"mail," +
 							"fecha_nacimiento, " +
-							"fecha_registro";
+							"fecha_registro, " +
+							"ultimo_login ";
 			return campos;
 		}
 
@@ -167,7 +171,8 @@ namespace Usuario.Clases {
 							"apellido AS us_apellido, " +
 							"mail AS us_mail, " +
 							"fecha_nacimiento AS us_nacimiento, " +
-							"fecha_registro AS us_registro";
+							"fecha_registro AS us_registro, " +
+							"ultimo_login AS us_ultlogin";
 			return campos;
 		}
 
@@ -184,7 +189,8 @@ namespace Usuario.Clases {
 							$"{FuncionesBD.StringToBD(obj.Apellido)}, " +
 							$"{FuncionesBD.StringToBD(obj.Mail)}, " +
 							$"{FuncionesBD.FechaToBD(obj.Nacimiento)}, " +
-							$"{FuncionesBD.FechaYHoraToBD(obj.FechaRegistro)} ";
+							$"{FuncionesBD.FechaYHoraToBD(obj.FechaRegistro)}," +
+							$"{FuncionesBD.FechaYHoraToBD(obj.UltimoLogin)} ";
 			return values;
 		}
 
@@ -192,14 +198,20 @@ namespace Usuario.Clases {
 
 		#region Variables
 
-		private string AgregarVariables(CUsuario obj) {
+		private string ModificarVariables(CUsuario obj) {
 			string values = $"user= {FuncionesBD.StringToBD(obj.User)}, " +
 							$"password= {FuncionesBD.StringToBD(obj.Password)}, " +
 							$"nombre= {FuncionesBD.StringToBD(obj.Nombre)}, " +
 							$"apellido= {FuncionesBD.StringToBD(obj.Apellido)}, " +
 							$"mail= {FuncionesBD.StringToBD(obj.Mail)}, " +
 							$"fecha_nacimiento= {FuncionesBD.DataTimeNullableToBD(obj.Nacimiento)}, " +
-							$"fecha_registro= {FuncionesBD.DataTimeNullableToBD(obj.FechaRegistro)} ";
+							$"fecha_registro= {FuncionesBD.DataTimeNullableToBD(obj.FechaRegistro)}," +
+							$"ultimo_login= {FuncionesBD.DataTimeNullableToBD(obj.UltimoLogin)} ";
+			return values;
+		}
+
+		private string ModificarVariableLogin(CUsuario obj) {
+			string values = $"ultimo_login= {FuncionesBD.FechaYHoraToBD(obj.UltimoLogin)} ";
 			return values;
 		}
 
@@ -232,5 +244,30 @@ namespace Usuario.Clases {
 		}
 
 		#endregion Orden
+
+		#region Adicionales
+
+		public bool IniciaSesion(CUsuario obj) {
+			Command cmd = new Command() {
+				Connection = conexion,
+				CommandText = $"SELECT {Campos()} " +
+							  $"FROM {Tabla()} " +
+							  $"WHERE {CndUser(obj)} AND {CndPass(obj)}"
+			};
+			return cmd.ExecuteExists();
+		}
+
+		public bool ModificarUltimoLogin(CUsuario obj) {
+			Command cmd = new Command() {
+				Connection = conexion,
+				CommandText = $"UPDATE {Tabla()} " +
+							  $"SET {ModificarVariableLogin(obj)} " +
+							  $"WHERE {CndUser(obj)}"
+			};
+
+			return cmd.ExecuteNonQuery() > 0;
+		}
+
+		#endregion Adicionales
 	}
 }
