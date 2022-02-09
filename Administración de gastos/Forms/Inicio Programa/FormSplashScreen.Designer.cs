@@ -27,8 +27,8 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.components = new System.ComponentModel.Container();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.label = new System.Windows.Forms.Label();
 			this.panelslide = new System.Windows.Forms.Panel();
+			this.label = new System.Windows.Forms.Label();
 			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -54,6 +54,14 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.panel1.Size = new System.Drawing.Size(337, 14);
 			this.panel1.TabIndex = 1;
 			// 
+			// panelslide
+			// 
+			this.panelslide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+			this.panelslide.Location = new System.Drawing.Point(263, 0);
+			this.panelslide.Name = "panelslide";
+			this.panelslide.Size = new System.Drawing.Size(74, 14);
+			this.panelslide.TabIndex = 1;
+			// 
 			// label
 			// 
 			this.label.BackColor = System.Drawing.Color.Transparent;
@@ -63,14 +71,6 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.label.TabIndex = 2;
 			this.label.Text = "progreso";
 			this.label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
-			// panelslide
-			// 
-			this.panelslide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-			this.panelslide.Location = new System.Drawing.Point(263, 0);
-			this.panelslide.Name = "panelslide";
-			this.panelslide.Size = new System.Drawing.Size(74, 14);
-			this.panelslide.TabIndex = 1;
 			// 
 			// timer
 			// 
@@ -87,7 +87,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.Controls.Add(this.label);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.label1);
-			this.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -97,6 +97,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "FormCargar";
+			this.UseWaitCursor = true;
 			this.Load += new System.EventHandler(this.FormSplashScreen_Load);
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);

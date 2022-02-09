@@ -59,8 +59,6 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 				label.Text = "Abriendo...";
 			}
 			if (contador > 600) {
-				//Database.BorrarBase();
-				//Application.Exit();
 				this.Dispose();
 			}
 		}

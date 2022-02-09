@@ -80,15 +80,12 @@ namespace ConexionDB {
 		/// <typeparam name="T">Una clase donde se van a ingresar los datos</typeparam>
 		/// <param name="cargar">Método que carga el objeto</param>
 		/// <returns>bool Dependiendo si cargó el objeto o no</returns>
-		public object ExecuteSelect<T>(Action<T, SQLiteDataReader> cargar) where T : class, new() {
+		public bool ExecuteSelect<T>(T obj, Action<T, SQLiteDataReader> cargar) where T : class, new() {
 			SQLiteDataReader dr = _ExecuteReader();
-
 			if (dr.Read()) {
-				T obj = new T();
-				cargar(obj, dr);
-				return obj;
+				cargar?.Invoke(obj, dr);
 			}
-			return null;
+			return dr.HasRows;
 		}
 
 		/// <summary>

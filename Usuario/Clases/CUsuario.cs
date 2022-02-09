@@ -82,11 +82,7 @@ namespace Usuario.Clases {
 		public bool Recuperar() {
 			PUsuario pers = new PUsuario();
 			var obj = this;
-			if (pers.Recuperar(ref obj)) {
-				Cargar(obj);
-				return true;
-			}
-			return false;
+			return pers.Recuperar(this);
 		}
 
 		public bool Existe() {
@@ -112,24 +108,24 @@ namespace Usuario.Clases {
 
 		#endregion Persistencia
 
-		#region Cargar
+		//#region Cargar
 
-		public void Cargar(CUsuario obj) {
-			Instanciar();
-			Inicializar();
+		//public void Cargar(CUsuario obj) {
+		//	Instanciar();
+		//	Inicializar();
 
-			Id = obj.Id;
-			User = obj.User;
-			Password = obj.Password;
-			Nombre = obj.Nombre;
-			Apellido = obj.Apellido;
-			Mail = obj.Mail;
+		//	Id = obj.Id;
+		//	User = obj.User;
+		//	Password = obj.Password;
+		//	Nombre = obj.Nombre;
+		//	Apellido = obj.Apellido;
+		//	Mail = obj.Mail;
 
-			Nacimiento = obj.Nacimiento;
-			FechaRegistro = obj.FechaRegistro;
-		}
+		//	Nacimiento = obj.Nacimiento;
+		//	FechaRegistro = obj.FechaRegistro;
+		//}
 
-		#endregion Cargar
+		//#endregion Cargar
 
 		#region String
 

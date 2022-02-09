@@ -89,21 +89,11 @@ namespace Usuario.Clases {
 							  $"FROM {Tabla()} " +
 							  $"WHERE {CndUser(obj)}"
 			};
-			var result = cmd.ExecuteSelect<CUsuario>(Cargar);
-			obj = result != null ? (CUsuario)result : obj;
-			return result != null;
+			return cmd.ExecuteSelect(obj, Cargar);
 		}
 
-		public bool Recuperar(ref CUsuario obj) {
-			Command cmd = new Command() {
-				Connection = conexion,
-				CommandText = $"SELECT {Campos()} " +
-							  $"FROM {Tabla()} " +
-							  $"WHERE {CndUser(obj)}"
-			};
-			var result = cmd.ExecuteSelect<CUsuario>(Cargar);
-			obj = result != null ? (CUsuario)result : obj;
-			return result != null;
+		internal bool RecuperarUltimoUsuarioLogueado(CUsuario cUsuario) {
+			throw new NotImplementedException();
 		}
 
 		#endregion Recuperar
@@ -142,7 +132,6 @@ namespace Usuario.Clases {
 					obj.FechaRegistro = DateTime.Parse(dr.GetString(col["ultimo_login"]));
 				}
 			}
-			return null;
 		}
 
 		#endregion Cargar

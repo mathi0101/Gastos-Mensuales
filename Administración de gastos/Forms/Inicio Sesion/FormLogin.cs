@@ -37,15 +37,15 @@ namespace Administración_de_gastos {
 		}
 
 		private void FormLogin_Load(object sender, EventArgs e) {
-			CargarUsuariosRegistrados();
-		}
+			//CargarUsuariosRegistrados();
+			this.Cursor = Cursors.Default;
 			List<CUsuario> users = new LUsuario().RecuperarTodos();
 			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
 			data.AddRange(users.Select(u => u.User).ToArray());
 			txtUser.AutoCompleteCustomSource = data;
 			if (users.Count > 0) {
 				txtUser.Text = users[0].User;
-				txtPassword.Focus();
+				txtPassword.Select();
 			}
 		}
 
@@ -157,7 +157,6 @@ namespace Administración_de_gastos {
 					user.ModificarUltimoLogin(DateTime.Now);
 					user.Recuperar();
 					LoginUser = user;
-					GuardarUltimoUserLogueado();
 					this.Dispose();
 				} else {
 					MessageBox.Show("Contraseña Incorrecta", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
