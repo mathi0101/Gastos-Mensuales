@@ -9,16 +9,10 @@ namespace ConexionDB {
 
 	public class Command {
 
-		#region Propiedades privadas
-
-		private SQLiteCommand cmd;
-
-		#endregion Propiedades privadas
-
 		#region Propiedades publicas
 
-		public SQLiteConnection Connection { get; set; }
-		public string CommandText { get; set; }
+		public SQLiteConnection Connection;
+		public string CommandText;
 
 		#endregion Propiedades publicas
 
@@ -27,23 +21,49 @@ namespace ConexionDB {
 		public Command() {
 		}
 
-		private void GetCmd() {
-			cmd = new SQLiteCommand() {
-				Connection = this.Connection,
-				CommandText = this.CommandText
-			};
-		}
+		//private SQLiteCommand GetCmd() {
+		//	SQLiteCommand cmd = new SQLiteCommand() {
+		//		Connection = this.Connection,
+		//		CommandText = this.CommandText
+		//	};
+		//	return cmd;
+		//}
 
 		#endregion Constructor
 
-		#region Execute
+		#region Privadas
+
+		private int _ExecuteNonQuery() {
+			return new SQLiteCommand() {
+				Connection = this.Connection,
+				CommandText = this.CommandText
+			}.ExecuteNonQuery();
+		}
+
+		private object _ExecuteScalar() {
+			return new SQLiteCommand() {
+				Connection = this.Connection,
+				CommandText = this.CommandText
+			}.ExecuteScalar();
+		}
+
+		private SQLiteDataReader _ExecuteReader() {
+			return new SQLiteCommand() {
+				Connection = this.Connection,
+				CommandText = this.CommandText
+			}.ExecuteReader();
+		}
+
+		#endregion Privadas
+
+		#region Publicas
 
 		/// <summary>
 		/// Ejecuta el comando y devuelve el numero de filas insertadas/modificadas afectadas por el
 		/// </summary>
 		/// <returns>El numero de filas insertadas/modificadas afectadas por el</returns>
 		public int ExecuteNonQuery() {
-			GetCmd(); return cmd.ExecuteNonQuery();
+			return _ExecuteNonQuery();
 		}
 
 		/// <summary>
@@ -51,7 +71,7 @@ namespace ConexionDB {
 		/// </summary>
 		/// <returns>Devuelve true/false dependiendo de si se ha encontrado un elemento que cumpla las condiciones de la consulta</returns>
 		public bool ExecuteExists() {
-			GetCmd(); return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+			return Convert.ToInt32(_ExecuteScalar()) > 0;
 		}
 
 		/// <summary>
@@ -60,11 +80,10 @@ namespace ConexionDB {
 		/// <typeparam name="T">Una clase donde se van a ingresar los datos</typeparam>
 		/// <param name="cargar">Método que carga el objeto</param>
 		/// <returns>bool Dependiendo si cargó el objeto o no</returns>
-		public object ExecuteSelect<T>(Func<T, SQLiteDataReader, object> cargar) where T : class, new() {
-			GetCmd();
-			SQLiteDataReader dr = cmd.ExecuteReader();
+		public object ExecuteSelect<T>(Action<T, SQLiteDataReader> cargar) where T : class, new() {
+			SQLiteDataReader dr = _ExecuteReader();
 
-			if (dr.HasRows) {
+			if (dr.Read()) {
 				T obj = new T();
 				cargar(obj, dr);
 				return obj;
@@ -78,21 +97,20 @@ namespace ConexionDB {
 		/// <typeparam name="T">Una clase donde se van a ingresar los datos</typeparam>
 		/// <param name="cargar"></param>
 		/// <returns>Devuelve la lista con los objetos cargados dentro</returns>
-		public List<T> ExecuteSelectList<T>(Func<T, SQLiteDataReader, object> cargar) where T : class, new() {
-			GetCmd();
-			SQLiteDataReader dr = cmd.ExecuteReader();
-			List<T> lista = new List<T>();
-			int i = 0;
-			do {
-				i++;
-				T obj = new T();
-				cargar(obj, dr);
-				if (dr.StepCount == i) lista.Add(obj);
-			} while (dr.StepCount == i);
+		public List<T> ExecuteSelectList<T>(Action<T, SQLiteDataReader> cargar1) where T : class, new() {
+			List<T> result = new List<T>();
+			T obj;
+			SQLiteDataReader dr = _ExecuteReader();
 
-			return lista;
+			while (dr.Read()) {
+				obj = new T();
+				cargar1?.Invoke(obj, dr);
+				result.Add(obj);
+			}
+
+			return result;
 		}
 
-		#endregion Execute
+		#endregion Publicas
 	}
 }

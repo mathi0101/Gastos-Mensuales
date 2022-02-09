@@ -111,10 +111,10 @@ namespace Usuario.Clases {
 
 		#region Cargar
 
-		public object Cargar(CUsuario obj, SQLiteDataReader dr) {
+		public void Cargar(CUsuario obj, SQLiteDataReader dr) {
 			obj.Inicializar();
 			obj.Instanciar();
-			if (dr.Read()) {
+			if (dr.HasRows) {
 				if (!dr.IsDBNull(col["id"])) {
 					obj.Id = dr.GetInt32(col["id"]);
 				}
@@ -140,7 +140,6 @@ namespace Usuario.Clases {
 					obj.FechaRegistro = DateTime.Parse(dr.GetString(col["fecha_registro"]));
 				}
 			}
-			return null;
 		}
 
 		#endregion Cargar
