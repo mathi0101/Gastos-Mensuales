@@ -140,7 +140,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\Log\LogForms.cs" />
+    <Compile Include="Clases\Log\CLogForms.cs" />
     <Compile Include="Forms\Inicio Programa\FormSplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>

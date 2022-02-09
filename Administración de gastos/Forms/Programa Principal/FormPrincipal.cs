@@ -17,7 +17,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 
 		#region Propiedades
 
-		private LogForms log;
+		private CLogForms log;
 		private CUsuario usuarioLogin;
 
 		#endregion Propiedades
@@ -31,7 +31,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 
 		private void FormPrincipal_Load(object sender, EventArgs e) {
 			CargarInfoStatus();
-			log = new LogForms(this);
+			log = new CLogForms(this);
 		}
 
 		#endregion Formulario
