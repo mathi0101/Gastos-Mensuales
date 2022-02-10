@@ -35,18 +35,18 @@ namespace ConexionDB.Database {
 
 		#endregion Propiedades
 
-		#region Conectar / Desconectar
+		#region Conectar / Cerrar
 
 		public static void Conectar() {
-			Conexion.conexion.Open(); // Abrimos conexion despues de crear la base
-									  //Conexion.conexion.ChangePassword("holakaze");
+			CConexionDB.Conexion().Open();
+			//Conexion.conexion.ChangePassword("holakaze");
 		}
 
-		public static void Desconectar() {
-			Conexion.conexion.Close();
+		public static void Cerrar() {
+			CConexionDB.Conexion().Close();
 		}
 
-		#endregion Conectar / Desconectar
+		#endregion Conectar / Cerrar
 
 		#region DML
 
@@ -72,7 +72,7 @@ namespace ConexionDB.Database {
 			bool salida = true;
 			try {
 				if (forzar) {
-					Conexion.conexion.Close();
+					CConexionDB.Conexion().Close();
 				}
 				File.Delete(RutaReal);
 				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{RutaReal}> ");

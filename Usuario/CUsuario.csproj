@@ -85,14 +85,14 @@
     <Compile Include="Clases\PUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConexionDB\ConexionDB.csproj">
-      <Project>{6ea7ed33-e776-4f11-88db-7aa7c0a14e4e}</Project>
-      <Name>ConexionDB</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConexionDB\CConexionDB.csproj">
+      <Project>{6ea7ed33-e776-4f11-88db-7aa7c0a14e4e}</Project>
+      <Name>CConexionDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

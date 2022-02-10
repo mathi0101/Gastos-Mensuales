@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ConexionDB {
 
-	public class Conexion {
+	public static class CConexionDB {
 		//private static string StringFromAppConfig { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
 
 		private static string StringCreate { get => $"Data Source={Database.Database.RutaReal};Version=3;"; }
 
-		public static SQLiteConnection conexion = new SQLiteConnection(StringCreate);
+		public static SQLiteConnection Conexion() => new SQLiteConnection(StringCreate);
 	}
 }

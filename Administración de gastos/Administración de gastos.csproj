@@ -140,7 +140,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Login\CLogin.cs" />
+    <Compile Include="Clases\Log\CLogForm.cs" />
     <Compile Include="Clases\Log\CLogForms.cs" />
+    <Compile Include="Clases\Log\PLogForm.cs" />
     <Compile Include="Forms\Inicio Programa\FormSplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,13 +229,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConexionDB\ConexionDB.csproj">
+    <ProjectReference Include="..\ConexionDB\CConexionDB.csproj">
       <Project>{6EA7ED33-E776-4F11-88DB-7AA7C0A14E4E}</Project>
-      <Name>ConexionDB</Name>
+      <Name>CConexionDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Usuario\Usuario.csproj">
+    <ProjectReference Include="..\Usuario\CUsuario.csproj">
       <Project>{9B457231-7B23-4652-977F-B8BFE2989CCD}</Project>
-      <Name>Usuario</Name>
+      <Name>CUsuario</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

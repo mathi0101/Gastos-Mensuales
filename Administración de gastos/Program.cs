@@ -40,7 +40,7 @@ namespace Administración_de_gastos {
 			}
 
 			// End of program
-			Database.Desconectar();
+			Database.Cerrar();
 		}
 	}
 }

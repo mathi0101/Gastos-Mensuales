@@ -13,7 +13,7 @@ namespace Usuario.Clases {
 
 		#region Atributos
 
-		private SQLiteConnection conexion = Conexion.conexion;
+		private SQLiteConnection conexion = CConexionDB.Conexion();
 
 		private readonly Dictionary<string, int> col = new Dictionary<string, int>() {{ "id", 0 },
 																			{ "user",1 },
