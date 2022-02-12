@@ -140,7 +140,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\Login\CLogin.cs" />
     <Compile Include="Clases\Log\CLogForm.cs" />
     <Compile Include="Clases\Log\CLogForms.cs" />
     <Compile Include="Clases\Log\PLogForm.cs" />

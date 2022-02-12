@@ -43,15 +43,9 @@ namespace Login.Forms {
 				MessageBox.Show("No se ha podido conectar a la base de datos.\nAvisale al creador del programa de este error!", "Error al iniciar aplicación!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				this.Dispose();
 			}
+
 			this.Cursor = Cursors.Default;
-			List<CUsuario> users = new LUsuario().RecuperarTodos();
-			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
-			data.AddRange(users.Select(u => u.User).ToArray());
-			txtUser.AutoCompleteCustomSource = data;
-			if (users.Count > 0) {
-				txtUser.Text = users[0].User;
-				txtPassword.Select();
-			}
+			CargarUsuariosRegistrados();
 		}
 
 		private void FormLogin_FormClosing(object sender, FormClosingEventArgs e) {
@@ -119,12 +113,15 @@ namespace Login.Forms {
 			data.AddRange(users.Select(u => u.User).ToArray());
 			txtUser.AutoCompleteCustomSource = data;
 
-			string lastUser = ConfigurationManager.AppSettings["lastUser"];
-			if (lastUser != null) {
-				txtUser.Text = lastUser;
+			if (users.Count > 0) {
+				CUsuario lastUser = users[0];
+				foreach (var user in users) {
+					if (user.UltimoLogin > lastUser.UltimoLogin) {
+						lastUser = user;
+					}
+				}
+				txtUser.Text = lastUser.User;
 				txtPassword.Select();
-			} else {
-				txtUser.Select();
 			}
 		}
 
@@ -171,14 +168,6 @@ namespace Login.Forms {
 				MessageBox.Show("Este usuario no existe\nCrea tu usuario con el botón Registrar!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				btnRegister.Focus();
 			}
-		}
-
-		private void GuardarUltimoUserLogueado() {
-			Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			config.AppSettings.Settings.Remove("lastUser");
-			config.AppSettings.Settings.Add(new KeyValueConfigurationElement("lastUser", UsuarioLogueado.User));
-			config.Save(ConfigurationSaveMode.Modified);
-			ConfigurationManager.RefreshSection("AppSettings");
 		}
 
 		#endregion Privadas

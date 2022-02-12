@@ -33,7 +33,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 				User = "testing",
 				Nombre = "Testing",
 			};
-			usuarioLogin = user != null ? user : test;
+			usuarioLogin = user ?? test;
 		}
 
 		private void FormPrincipal_Load(object sender, EventArgs e) {
@@ -48,7 +48,11 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		#region Status
 
 		private void CargarInfoStatus() {
+			toolStripStatusUsuario.Alignment = ToolStripItemAlignment.Left;
 			toolStripStatusUsuario.Text = usuarioLogin.NombreCompleto;
+
+			toolStripStatusFechaHora.Alignment = ToolStripItemAlignment.Right;
+			toolStripStatusFechaHora.Text = DateTime.Now.ToString("f");
 		}
 
 		#endregion Status
@@ -63,5 +67,9 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		}
 
 		#endregion Personal
+
+		private void timer1_Tick(object sender, EventArgs e) {
+			toolStripStatusFechaHora.Text = DateTime.Now.ToString("f");
+		}
 	}
 }

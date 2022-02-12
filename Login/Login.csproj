@@ -98,5 +98,8 @@
   <ItemGroup>
     <None Include="Resources\Loading Screen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Clases\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
