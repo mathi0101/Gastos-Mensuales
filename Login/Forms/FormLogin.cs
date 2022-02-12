@@ -24,7 +24,7 @@ namespace Login.Forms {
 
 		#region Propiedades
 
-		public CUsuario LoginUser = null;
+		public CUsuario UsuarioLogueado = null;
 
 		#endregion Propiedades
 
@@ -36,6 +36,13 @@ namespace Login.Forms {
 
 		private void FormLogin_Load(object sender, EventArgs e) {
 			//CargarUsuariosRegistrados();
+
+			FormSplashScreen form = new FormSplashScreen();
+			form.ShowDialog();
+			if (!form.connectionReady) {
+				MessageBox.Show("No se ha podido conectar a la base de datos.\nAvisale al creador del programa de este error!", "Error al iniciar aplicación!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				this.Dispose();
+			}
 			this.Cursor = Cursors.Default;
 			List<CUsuario> users = new LUsuario().RecuperarTodos();
 			AutoCompleteStringCollection data = new AutoCompleteStringCollection();
@@ -154,7 +161,7 @@ namespace Login.Forms {
 					//MessageBox.Show("Has iniciado sesión correctamente!\nBienvenido", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					user.ModificarUltimoLogin(DateTime.Now);
 					user.Recuperar();
-					LoginUser = user;
+					UsuarioLogueado = user;
 					this.Dispose();
 				} else {
 					MessageBox.Show("Contraseña Incorrecta", "Inicio de sesión", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -169,7 +176,7 @@ namespace Login.Forms {
 		private void GuardarUltimoUserLogueado() {
 			Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 			config.AppSettings.Settings.Remove("lastUser");
-			config.AppSettings.Settings.Add(new KeyValueConfigurationElement("lastUser", LoginUser.User));
+			config.AppSettings.Settings.Add(new KeyValueConfigurationElement("lastUser", UsuarioLogueado.User));
 			config.Save(ConfigurationSaveMode.Modified);
 			ConfigurationManager.RefreshSection("AppSettings");
 		}

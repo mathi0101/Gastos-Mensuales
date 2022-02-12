@@ -24,9 +24,16 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 
 		#region Formulario
 
-		public FormPrincipal(CUsuario user) {
+		public FormPrincipal() {
 			InitializeComponent();
-			usuarioLogin = user;
+		}
+
+		public FormPrincipal(CUsuario user) : this() {
+			CUsuario test = new CUsuario() {
+				User = "testing",
+				Nombre = "Testing",
+			};
+			usuarioLogin = user != null ? user : test;
 		}
 
 		private void FormPrincipal_Load(object sender, EventArgs e) {

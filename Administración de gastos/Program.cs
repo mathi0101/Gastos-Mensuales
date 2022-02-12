@@ -1,6 +1,4 @@
-﻿using Administración_de_gastos.Forms.Inicio_Programa;
-using Administración_de_gastos.Forms.Programa_Principal;
-using ConexionDB;
+﻿using Administración_de_gastos.Forms.Programa_Principal;
 using ConexionDB.Database;
 using Login.Forms;
 using System;
@@ -28,16 +26,10 @@ namespace Administración_de_gastos {
 			//config.Save(ConfigurationSaveMode.Modified);
 			//ConfigurationManager.RefreshSection("connectionStrings");
 
-			FormSplashScreen start = new FormSplashScreen();
-			Application.Run(start);
-			if (start.todoOK) {
-				start.Close();
-				FormLogin login = new FormLogin();
-				Application.Run(login);
-				if (login.LoginUser != null) {
-					login.Close();
-					Application.Run(new FormPrincipal(login.LoginUser));
-				}
+			FormLogin login = new FormLogin();
+			Application.Run(login);
+			if (login.UsuarioLogueado != null) {
+				Application.Run(new FormPrincipal(null));
 			}
 
 			// End of program

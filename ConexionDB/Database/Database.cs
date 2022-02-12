@@ -39,10 +39,13 @@ namespace ConexionDB.Database {
 		#region Conectar / Cerrar
 
 		public static bool TryConectar() {
-			CConexionDB.Conexion().Open();
+			try {
+				CConexionDB.Conexion().Open();
+			} catch (InvalidOperationException) {
+				// Ya estaba abierta
+			}
 			PDatabase pers = new PDatabase();
 			return pers.ConnectionisOk();
-			//Conexion.conexion.ChangePassword("holakaze");
 		}
 
 		public static void Cerrar() {
@@ -53,9 +56,8 @@ namespace ConexionDB.Database {
 
 		#region Test
 
-		public static bool ConnectionIsOK() {
+		public static bool ConnectionisOK() {
 			PDatabase pers = new PDatabase();
-
 			return pers.ConnectionisOk();
 		}
 

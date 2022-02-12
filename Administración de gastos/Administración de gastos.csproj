@@ -144,34 +144,24 @@
     <Compile Include="Clases\Log\CLogForm.cs" />
     <Compile Include="Clases\Log\CLogForms.cs" />
     <Compile Include="Clases\Log\PLogForm.cs" />
-    <Compile Include="Forms\Inicio Programa\FormSplashScreen.cs">
+    <Compile Include="Forms\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Inicio Programa\FormSplashScreen.Designer.cs">
-      <DependentUpon>FormSplashScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Programa Principal\FormPrincipal.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Programa Principal\FormPrincipal.Designer.cs">
+    <Compile Include="Forms\FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Programa Principal\Personal\FormGestionTarjetas.cs">
+    <Compile Include="Forms\Personal\FormGestionTarjetas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Programa Principal\Personal\FormGestionTarjetas.Designer.cs">
+    <Compile Include="Forms\Personal\FormGestionTarjetas.Designer.cs">
       <DependentUpon>FormGestionTarjetas.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Resources\Loading Screen.png" />
-    <EmbeddedResource Include="Forms\Inicio Programa\FormSplashScreen.resx">
-      <DependentUpon>FormSplashScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Programa Principal\FormPrincipal.resx">
+    <EmbeddedResource Include="Forms\FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Programa Principal\Personal\FormGestionTarjetas.resx">
+    <EmbeddedResource Include="Forms\Personal\FormGestionTarjetas.resx">
       <DependentUpon>FormGestionTarjetas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -216,7 +206,7 @@
       <Name>ConexionDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\Login\Login.csproj">
-      <Project>{1dad5a5b-f0ea-4661-87c7-55e85f5e3a3f}</Project>
+      <Project>{1DAD5A5B-F0EA-4661-87C7-55E85F5E3A3F}</Project>
       <Name>Login</Name>
     </ProjectReference>
     <ProjectReference Include="..\Usuario\Usuario.csproj">

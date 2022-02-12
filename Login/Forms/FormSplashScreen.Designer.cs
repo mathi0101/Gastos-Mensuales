@@ -1,5 +1,5 @@
 ﻿
-namespace Administración_de_gastos.Forms.Inicio_Programa {
+namespace Login.Forms {
 	partial class FormSplashScreen {
 		/// <summary>
 		/// Required designer variable.
@@ -44,6 +44,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Loading";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label1.UseWaitCursor = true;
 			// 
 			// panel1
 			// 
@@ -53,6 +54,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(337, 14);
 			this.panel1.TabIndex = 1;
+			this.panel1.UseWaitCursor = true;
 			// 
 			// panelslide
 			// 
@@ -61,6 +63,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.panelslide.Name = "panelslide";
 			this.panelslide.Size = new System.Drawing.Size(74, 14);
 			this.panelslide.TabIndex = 1;
+			this.panelslide.UseWaitCursor = true;
 			// 
 			// label
 			// 
@@ -71,6 +74,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.label.TabIndex = 2;
 			this.label.Text = "progreso";
 			this.label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.label.UseWaitCursor = true;
 			// 
 			// timer
 			// 
@@ -82,7 +86,7 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
-			this.BackgroundImage = global::Administración_de_gastos.Properties.Resources.Loading_Screen;
+			this.BackgroundImage = global::Login.Properties.Resources.Loading_Screen;
 			this.ClientSize = new System.Drawing.Size(450, 235);
 			this.Controls.Add(this.label);
 			this.Controls.Add(this.panel1);

@@ -1,5 +1,6 @@
 ﻿using ConexionDB;
 using ConexionDB.Database;
+using Login.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,12 +13,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Administración_de_gastos.Forms.Inicio_Programa {
+namespace Login.Forms {
 
 	public partial class FormSplashScreen : Form {
-		public bool todoOK;
 
-		private int contador = -1;
+		#region Propiedades
+
+		private int contador = 0;
+		public bool connectionReady = false;
+
+		#endregion Propiedades
+
+		#region Formulario
 
 		public FormSplashScreen() {
 			InitializeComponent();
@@ -25,24 +32,12 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 
 		private void FormSplashScreen_Load(object sender, EventArgs e) {
 			timer.Start();
-
-			if (Database.Existe()) {
-				label.Text = "Cargando Base de Datos...";
-				if (Database.TryConectar()) {
-					todoOK = true;
-				} else {
-					throw new Exception("No se ha podido conectar");
-				}
-			} else {
-				if (Database.CrearBase()) {
-					label.Text = "Creando la Base de Datos...";
-					todoOK = true;
-				} else {
-					todoOK = false;
-				}
-			}
-			contador = 0;
+			label.Text = "Iniciando...";
 		}
+
+		#endregion Formulario
+
+		#region Tick
 
 		private void timer1_Tick(object sender, EventArgs e) {
 			panelslide.Left += 2;
@@ -59,11 +54,19 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 				label.Text = "Cargando aplicación...";
 			}
 			if (contador > 500) {
-				label.Text = "Abriendo...";
+				if (Database.Existe()) {
+					connectionReady = Database.TryConectar();
+					label.Text = "Cargando Base de Datos...";
+				} else {
+					connectionReady = Database.CrearBase();
+					label.Text = "Creando la Base de Datos...";
+				}
 			}
 			if (contador > 600) {
 				this.Dispose();
 			}
 		}
+
+		#endregion Tick
 	}
 }
