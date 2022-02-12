@@ -1,5 +1,5 @@
 ﻿
-namespace Administración_de_gastos.Forms.Inicio_Sesion
+namespace Login.Forms
 {
     partial class FormRegister
     {

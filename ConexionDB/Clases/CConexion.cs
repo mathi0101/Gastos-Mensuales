@@ -6,13 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConexionDB {
+namespace ConexionDB.Clases {
 
 	public static class CConexionDB {
 		//private static string StringFromAppConfig { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
 
 		private static string StringCreate { get => $"Data Source={Database.Database.RutaReal};Version=3;"; }
+		private static SQLiteConnection conexion;
 
-		public static SQLiteConnection Conexion() => new SQLiteConnection(StringCreate);
+		public static SQLiteConnection Conexion() {
+			if (conexion != null) {
+				return conexion;
+			} else {
+				conexion = new SQLiteConnection(StringCreate);
+				return conexion;
+			}
+		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using ConexionDB;
+using ConexionDB.Clases;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -13,7 +14,7 @@ namespace Usuario.Clases {
 		public List<CUsuario> RecuperarTodos() {
 			PUsuario pers = new PUsuario();
 			Command cmd = new Command() {
-				Connection = Conexion.conexion,
+				Connection = CConexionDB.Conexion(),
 				CommandText = $"SELECT {pers.Campos()} " +
 							  $"FROM {pers.Tabla()} " +
 							  $"ORDER BY {pers.Orden()}"

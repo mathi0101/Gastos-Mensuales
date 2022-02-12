@@ -1,34 +1,29 @@
 ﻿
-namespace Administración_de_gastos
-{
-    partial class FormLogin
-    {
-        /// <summary>
-        /// Variable del diseñador necesaria.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+namespace Login.Forms {
+	partial class FormLogin {
+		/// <summary>
+		/// Variable del diseñador necesaria.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Limpiar los recursos que se estén usando.
-        /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Limpiar los recursos que se estén usando.
+		/// </summary>
+		/// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+		protected override void Dispose(bool disposing) {
+			if (disposing && (components != null)) {
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-        #region Código generado por el Diseñador de Windows Forms
+		#region Código generado por el Diseñador de Windows Forms
 
-        /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Método necesario para admitir el Diseñador. No se puede modificar
+		/// el contenido de este método con el editor de código.
+		/// </summary>
+		private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label1 = new System.Windows.Forms.Label();
@@ -45,8 +40,8 @@ namespace Administración_de_gastos
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)));
 			this.groupBox2.Controls.Add(this.label1);
 			this.groupBox2.Controls.Add(this.label2);
 			this.groupBox2.Controls.Add(this.txtPassword);
@@ -112,8 +107,8 @@ namespace Administración_de_gastos
 			// 
 			// groupBox3
 			// 
-			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox3.Controls.Add(this.label3);
 			this.groupBox3.Controls.Add(this.btnRegister);
 			this.groupBox3.Location = new System.Drawing.Point(305, 12);
@@ -131,8 +126,8 @@ namespace Administración_de_gastos
 			this.label3.Size = new System.Drawing.Size(178, 126);
 			this.label3.TabIndex = 0;
 			this.label3.Text = "Para poder controlar y gestionar tus gastos mensuales y anuales de la mejor forma" +
-    " y efectividad tienes que crear una cuenta.\r\nHaz clic en \"Registrarse\" y sigue l" +
-    "os pasos para obtener una!";
+	" y efectividad tienes que crear una cuenta.\r\nHaz clic en \"Registrarse\" y sigue l" +
+	"os pasos para obtener una!";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// btnRegister
@@ -165,19 +160,19 @@ namespace Administración_de_gastos
 			this.groupBox3.ResumeLayout(false);
 			this.ResumeLayout(false);
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Button btnLogin;
-        private System.Windows.Forms.TextBox txtUser;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnRegister;
-        private System.Windows.Forms.Label label3;
-    }
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TextBox txtPassword;
+		private System.Windows.Forms.Button btnLogin;
+		private System.Windows.Forms.TextBox txtUser;
+		private System.Windows.Forms.GroupBox groupBox3;
+		private System.Windows.Forms.Button btnRegister;
+		private System.Windows.Forms.Label label3;
+	}
 }
 

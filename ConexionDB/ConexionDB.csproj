@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConexionDB</RootNamespace>
-    <AssemblyName>ConexionDB</AssemblyName>
+    <AssemblyName>CConexionDB</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -97,11 +97,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command.cs" />
-    <Compile Include="Conexion.cs" />
+    <Compile Include="Clases\Command.cs" />
+    <Compile Include="Clases\CConexion.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\PDatabase.cs" />
-    <Compile Include="FuncionesBD.cs" />
+    <Compile Include="Clases\CFuncionesBD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

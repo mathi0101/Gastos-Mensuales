@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConexionDB.Clases;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -37,8 +38,10 @@ namespace ConexionDB.Database {
 
 		#region Conectar / Cerrar
 
-		public static void Conectar() {
+		public static bool TryConectar() {
 			CConexionDB.Conexion().Open();
+			PDatabase pers = new PDatabase();
+			return pers.ConnectionisOk();
 			//Conexion.conexion.ChangePassword("holakaze");
 		}
 
@@ -48,6 +51,16 @@ namespace ConexionDB.Database {
 
 		#endregion Conectar / Cerrar
 
+		#region Test
+
+		public static bool ConnectionIsOK() {
+			PDatabase pers = new PDatabase();
+
+			return pers.ConnectionisOk();
+		}
+
+		#endregion Test
+
 		#region DML
 
 		public static bool CrearBase() {
@@ -55,10 +68,9 @@ namespace ConexionDB.Database {
 				Directory.CreateDirectory(RutaDeCarpeta);
 			}
 			SQLiteConnection.CreateFile(RutaReal);
-			Conectar();
 			PDatabase pers = new PDatabase();
 
-			bool salida = true; ;
+			bool salida = TryConectar();
 			try {
 				pers.CrearBase();
 			} catch (Exception ex) {

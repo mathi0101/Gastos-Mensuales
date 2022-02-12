@@ -28,8 +28,11 @@ namespace Administración_de_gastos.Forms.Inicio_Programa {
 
 			if (Database.Existe()) {
 				label.Text = "Cargando Base de Datos...";
-				Database.Conectar();
-				todoOK = true;
+				if (Database.TryConectar()) {
+					todoOK = true;
+				} else {
+					throw new Exception("No se ha podido conectar");
+				}
 			} else {
 				if (Database.CrearBase()) {
 					label.Text = "Creando la Base de Datos...";

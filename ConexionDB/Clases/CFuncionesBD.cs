@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConexionDB {
+namespace ConexionDB.Clases {
 
-	public static class FuncionesBD {
+	public static class CFuncionesBD {
 
 		public static string StringToBD(string texto) {
 			if (texto == "") {

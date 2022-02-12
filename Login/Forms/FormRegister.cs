@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Usuario.Clases;
 using Usuario.Encrypt;
 
-namespace Administración_de_gastos.Forms.Inicio_Sesion {
+namespace Login.Forms {
 
 	public partial class FormRegister : Form {
 

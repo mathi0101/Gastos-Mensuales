@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConexionDB {
+namespace ConexionDB.Clases {
 
 	public class Command {
 
@@ -72,6 +72,15 @@ namespace ConexionDB {
 		/// <returns>Devuelve true/false dependiendo de si se ha encontrado un elemento que cumpla las condiciones de la consulta</returns>
 		public bool ExecuteExists() {
 			return Convert.ToInt32(_ExecuteScalar()) > 0;
+		}
+
+		public int ExecuteCount() {
+			SQLiteDataReader dr = _ExecuteReader();
+			int rows = 0;
+			while (dr.Read()) {
+				rows++;
+			}
+			return rows;
 		}
 
 		/// <summary>

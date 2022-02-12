@@ -2,6 +2,7 @@
 using Administración_de_gastos.Forms.Programa_Principal;
 using ConexionDB;
 using ConexionDB.Database;
+using Login.Forms;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

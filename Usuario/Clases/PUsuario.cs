@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
-using ConexionDB;
+using ConexionDB.Clases;
 using System.Data.SQLite;
 
 namespace Usuario.Clases {
@@ -172,14 +172,14 @@ namespace Usuario.Clases {
 		#region Valores
 
 		private string AgregarValores(CUsuario obj) {
-			string values = $"{FuncionesBD.StringToBD(obj.User)}, " +
-							$"{FuncionesBD.StringToBD(obj.Password)}, " +
-							$"{FuncionesBD.StringToBD(obj.Nombre)}, " +
-							$"{FuncionesBD.StringToBD(obj.Apellido)}, " +
-							$"{FuncionesBD.StringToBD(obj.Mail)}, " +
-							$"{FuncionesBD.FechaToBD(obj.Nacimiento)}, " +
-							$"{FuncionesBD.FechaYHoraToBD(obj.FechaRegistro)}," +
-							$"{FuncionesBD.FechaYHoraToBD(obj.UltimoLogin)} ";
+			string values = $"{CFuncionesBD.StringToBD(obj.User)}, " +
+							$"{CFuncionesBD.StringToBD(obj.Password)}, " +
+							$"{CFuncionesBD.StringToBD(obj.Nombre)}, " +
+							$"{CFuncionesBD.StringToBD(obj.Apellido)}, " +
+							$"{CFuncionesBD.StringToBD(obj.Mail)}, " +
+							$"{CFuncionesBD.FechaToBD(obj.Nacimiento)}, " +
+							$"{CFuncionesBD.FechaYHoraToBD(obj.FechaRegistro)}," +
+							$"{CFuncionesBD.FechaYHoraToBD(obj.UltimoLogin)} ";
 			return values;
 		}
 
@@ -188,19 +188,19 @@ namespace Usuario.Clases {
 		#region Variables
 
 		private string ModificarVariables(CUsuario obj) {
-			string values = $"user= {FuncionesBD.StringToBD(obj.User)}, " +
-							$"password= {FuncionesBD.StringToBD(obj.Password)}, " +
-							$"nombre= {FuncionesBD.StringToBD(obj.Nombre)}, " +
-							$"apellido= {FuncionesBD.StringToBD(obj.Apellido)}, " +
-							$"mail= {FuncionesBD.StringToBD(obj.Mail)}, " +
-							$"fecha_nacimiento= {FuncionesBD.DataTimeNullableToBD(obj.Nacimiento)}, " +
-							$"fecha_registro= {FuncionesBD.DataTimeNullableToBD(obj.FechaRegistro)}," +
-							$"ultimo_login= {FuncionesBD.DataTimeNullableToBD(obj.UltimoLogin)} ";
+			string values = $"user= {CFuncionesBD.StringToBD(obj.User)}, " +
+							$"password= {CFuncionesBD.StringToBD(obj.Password)}, " +
+							$"nombre= {CFuncionesBD.StringToBD(obj.Nombre)}, " +
+							$"apellido= {CFuncionesBD.StringToBD(obj.Apellido)}, " +
+							$"mail= {CFuncionesBD.StringToBD(obj.Mail)}, " +
+							$"fecha_nacimiento= {CFuncionesBD.DataTimeNullableToBD(obj.Nacimiento)}, " +
+							$"fecha_registro= {CFuncionesBD.DataTimeNullableToBD(obj.FechaRegistro)}," +
+							$"ultimo_login= {CFuncionesBD.DataTimeNullableToBD(obj.UltimoLogin)} ";
 			return values;
 		}
 
 		private string ModificarVariableLogin(CUsuario obj) {
-			string values = $"ultimo_login= {FuncionesBD.FechaYHoraToBD(obj.UltimoLogin)} ";
+			string values = $"ultimo_login= {CFuncionesBD.FechaYHoraToBD(obj.UltimoLogin)} ";
 			return values;
 		}
 
@@ -210,9 +210,9 @@ namespace Usuario.Clases {
 
 		private object CndId(CUsuario obj) => $"id= {obj.Id}";
 
-		private string CndUser(CUsuario obj) => $"user= {FuncionesBD.StringToBD(obj.User)}";
+		private string CndUser(CUsuario obj) => $"user= {CFuncionesBD.StringToBD(obj.User)}";
 
-		private object CndPass(CUsuario obj) => $"password= {FuncionesBD.StringToBD(obj.Password)}";
+		private object CndPass(CUsuario obj) => $"password= {CFuncionesBD.StringToBD(obj.Password)}";
 
 		#endregion Condiciones
 

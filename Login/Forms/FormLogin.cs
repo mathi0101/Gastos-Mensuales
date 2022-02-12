@@ -10,11 +10,9 @@ using System.Windows.Forms;
 using Usuario.Clases;
 using ConexionDB.Database;
 using Usuario.Encrypt;
-using Administración_de_gastos.Forms.Inicio_Sesion;
-using Administración_de_gastos.Forms.Programa_Principal;
 using System.Configuration;
 
-namespace Administración_de_gastos {
+namespace Login.Forms {
 
 	public partial class FormLogin : Form {
 

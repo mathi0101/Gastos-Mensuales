@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConexionDB.Clases;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -11,13 +12,14 @@ namespace ConexionDB.Database {
 
 		#region Conexion
 
-		private SQLiteConnection conexion = Conexion.conexion;
+		private SQLiteConnection conexion;
 
 		#endregion Conexion
 
 		#region Constructor
 
 		public PDatabase() {
+			conexion = CConexionDB.Conexion();
 		}
 
 		#endregion Constructor
@@ -33,6 +35,18 @@ namespace ConexionDB.Database {
 		}
 
 		#endregion Crear
+
+		#region TestConnection
+
+		internal bool ConnectionisOk() {
+			Command cmd = new Command() {
+				Connection = conexion,
+				CommandText = "SELECT TIME('now');"
+			};
+			return cmd.ExecuteCount() > 0;
+		}
+
+		#endregion TestConnection
 
 		#region Tablas
 
