@@ -71,5 +71,9 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		private void timer1_Tick(object sender, EventArgs e) {
 			toolStripStatusFechaHora.Text = DateTime.Now.ToString("f");
 		}
+
+		private void informaciónPersonalToolStripMenuItem_Click(object sender, EventArgs e) {
+
+		}
 	}
 }
