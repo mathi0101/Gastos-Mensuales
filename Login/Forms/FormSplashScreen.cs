@@ -54,11 +54,11 @@ namespace Login.Forms {
 				label.Text = "Cargando aplicación...";
 			}
 			if (contador > 500) {
-				if (Database.Existe()) {
-					connectionReady = Database.TryConectar();
+				if (CDatabase.Existe()) {
+					connectionReady = CDatabase.TryConectar();
 					label.Text = "Cargando Base de Datos...";
 				} else {
-					connectionReady = Database.CrearBase();
+					connectionReady = CDatabase.CrearBase();
 					label.Text = "Creando la Base de Datos...";
 				}
 			}

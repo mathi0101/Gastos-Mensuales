@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ConexionDB.Database {
 
-	public static class Database {
+	public static class CDatabase {
 
-		#region Propiedades
+		#region Constantes
 
 		/// <summary>
 		/// Nombre de la base de datos.
@@ -23,15 +23,20 @@ namespace ConexionDB.Database {
 		/// </summary>
 		public static readonly string CarpetaContenedora = "GastosUserData";
 
+		#endregion Constantes
+
+		#region Propiedades
+
 		/// <summary>
 		/// Ruta exacta de la base de datos
 		/// </summary>
 		public static string RutaReal {
-			get => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora, Nombre);
+			get => Path.Combine(RutaDeCarpeta, Nombre);
 		}
 
 		public static string RutaDeCarpeta {
-			get => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora);
+			//get => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora);
+			get => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), CarpetaContenedora);
 		}
 
 		#endregion Propiedades

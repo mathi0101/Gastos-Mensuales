@@ -99,7 +99,7 @@
   <ItemGroup>
     <Compile Include="Clases\Command.cs" />
     <Compile Include="Clases\CConexion.cs" />
-    <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\CDatabase.cs" />
     <Compile Include="Database\PDatabase.cs" />
     <Compile Include="Clases\CFuncionesBD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

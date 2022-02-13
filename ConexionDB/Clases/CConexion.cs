@@ -11,7 +11,7 @@ namespace ConexionDB.Clases {
 	public static class CConexionDB {
 		//private static string StringFromAppConfig { get => ConfigurationManager.ConnectionStrings["cadena"].ConnectionString; }
 
-		private static string StringCreate { get => $"Data Source={Database.Database.RutaReal};Version=3;"; }
+		private static string StringCreate { get => $"Data Source={Database.CDatabase.RutaReal};Version=3;"; }
 		private static SQLiteConnection conexion;
 
 		public static SQLiteConnection Conexion() {
