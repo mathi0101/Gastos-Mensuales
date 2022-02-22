@@ -47,13 +47,11 @@ namespace Login.Forms {
 			}
 
 			contador += contador >= 0 ? 5 : 0;
-			if (contador > 200) {
+			if (contador < 300) {
 				label.Text = "Leyendo configuración del programa...";
-			}
-			if (contador > 300) {
+			} else if (contador < 500) {
 				label.Text = "Cargando aplicación...";
-			}
-			if (contador > 500) {
+			} else if (contador < 600) {
 				if (CDatabase.Existe()) {
 					connectionReady = CDatabase.TryConectar();
 					label.Text = "Cargando Base de Datos...";
@@ -61,8 +59,7 @@ namespace Login.Forms {
 					connectionReady = CDatabase.CrearBase();
 					label.Text = "Creando la Base de Datos...";
 				}
-			}
-			if (contador > 600) {
+			} else {
 				this.Dispose();
 			}
 		}

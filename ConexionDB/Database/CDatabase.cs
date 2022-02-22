@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,8 +36,7 @@ namespace ConexionDB.Database {
 		}
 
 		public static string RutaDeCarpeta {
-			//get => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora);
-			get => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), CarpetaContenedora);
+			get => Debugger.IsAttached ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), CarpetaContenedora) : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora);
 		}
 
 		#endregion Propiedades
@@ -54,7 +54,7 @@ namespace ConexionDB.Database {
 		}
 
 		public static void Cerrar() {
-			CConexionDB.Conexion().Close();
+			CConexionDB.CloseConnection();
 		}
 
 		#endregion Conectar / Cerrar
@@ -82,24 +82,18 @@ namespace ConexionDB.Database {
 				pers.CrearBase();
 			} catch (Exception ex) {
 				salida = false;
-				throw ex;
 			}
 			return salida;
 		}
 
 		public static bool BorrarBase(bool forzar = false) {
-			bool salida = true;
 			try {
-				if (forzar) {
-					CConexionDB.Conexion().Close();
-				}
+				CConexionDB.CloseConnection();
 				File.Delete(RutaReal);
 				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{RutaReal}> ");
-			} catch (Exception) {
-				salida = false;
-				//throw ex;
+			} catch (IOException ex) {
 			}
-			return salida;
+			return !Existe();
 		}
 
 		public static bool BorrarBaseYCarpeta() {

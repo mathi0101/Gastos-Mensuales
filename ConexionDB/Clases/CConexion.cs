@@ -22,5 +22,10 @@ namespace ConexionDB.Clases {
 				return conexion;
 			}
 		}
+
+		public static void CloseConnection() {
+			conexion.Close();
+			conexion = null;
+		}
 	}
 }

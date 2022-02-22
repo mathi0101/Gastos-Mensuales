@@ -41,6 +41,7 @@ namespace Login.Forms {
 			form.ShowDialog();
 			if (!form.connectionReady) {
 				MessageBox.Show("No se ha podido conectar a la base de datos.\nAvisale al creador del programa de este error!", "Error al iniciar aplicación!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				this.DialogResult = DialogResult.Abort;
 				this.Dispose();
 			}
 

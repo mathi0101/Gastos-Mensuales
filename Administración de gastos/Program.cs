@@ -25,15 +25,19 @@ namespace Administración_de_gastos {
 			//config.ConnectionStrings.ConnectionStrings.Add(new ConnectionStringSettings("cadena", $"Data Source={Database.RutaReal};Version=3;"));
 			//config.Save(ConfigurationSaveMode.Modified);
 			//ConfigurationManager.RefreshSection("connectionStrings");
-
+			bool borrarBaseAlSalir = false;
 			FormLogin login = new FormLogin();
 			Application.Run(login);
+			borrarBaseAlSalir = login.DialogResult == DialogResult.Abort;
 			if (login.UsuarioLogueado != null) {
 				Application.Run(new FormPrincipal(null));
 			}
 
 			// End of program
 			CDatabase.Cerrar();
+			if (borrarBaseAlSalir) {
+				CDatabase.BorrarBase();
+			}
 		}
 	}
 }
