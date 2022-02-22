@@ -140,9 +140,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\Log\CLogForm.cs" />
     <Compile Include="Clases\Log\CLogForms.cs" />
-    <Compile Include="Clases\Log\PLogForm.cs" />
     <Compile Include="Forms\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,7 +203,7 @@
       <Name>ConexionDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\Login\Login.csproj">
-      <Project>{1DAD5A5B-F0EA-4661-87C7-55E85F5E3A3F}</Project>
+      <Project>{1dad5a5b-f0ea-4661-87c7-55e85f5e3a3f}</Project>
       <Name>Login</Name>
     </ProjectReference>
     <ProjectReference Include="..\Usuario\Usuario.csproj">
