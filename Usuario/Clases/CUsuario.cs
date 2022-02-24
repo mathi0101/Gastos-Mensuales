@@ -17,6 +17,7 @@ namespace Usuario.Clases {
 		public string Nombre { get; set; }
 		public string Apellido { get; set; }
 		public string Mail { get; set; }
+		public bool Eliminado { get; set; }
 		public DateTime? Nacimiento { get; set; }
 		public DateTime? FechaRegistro { get; set; }
 		public DateTime? UltimoLogin { get; set; }
@@ -42,6 +43,7 @@ namespace Usuario.Clases {
 
 		public void Instanciar() {
 			Nacimiento = null;
+			Eliminado = false;
 			FechaRegistro = null;
 			UltimoLogin = null;
 		}
