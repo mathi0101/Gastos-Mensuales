@@ -43,7 +43,7 @@ namespace ConexionDB.Database {
 				Connection = conexion,
 				CommandText = "SELECT TIME('now');"
 			};
-			return cmd.ExecuteCount() > 0;
+			return cmd.ExecuteExists();
 		}
 
 		#endregion TestConnection
