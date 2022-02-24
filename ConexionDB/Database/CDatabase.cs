@@ -22,7 +22,7 @@ namespace ConexionDB.Database {
 		/// <summary>
 		/// Nombre de la carpeta alojada en AppData
 		/// </summary>
-		public static readonly string CarpetaContenedora = "GastosUserData";
+		public static readonly string CarpetaContenedora = "MisGastos";
 
 		#endregion Constantes
 
@@ -36,16 +36,16 @@ namespace ConexionDB.Database {
 		}
 
 		public static string RutaDeCarpeta {
-			get => Debugger.IsAttached ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), CarpetaContenedora) : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora);
+			get => Debugger.IsAttached ? CarpetaContenedora : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora);
 		}
 
 		#endregion Propiedades
 
-		#region Conectar / Cerrar
+		#region Conectar
 
 		public static bool TryConectar() {
 			try {
-				CConexionDB.Conexion().Open();
+				CConexionDB.OpenConnection();
 			} catch (InvalidOperationException) {
 				// Ya estaba abierta
 			}
@@ -53,11 +53,7 @@ namespace ConexionDB.Database {
 			return pers.ConnectionisOk();
 		}
 
-		public static void Cerrar() {
-			CConexionDB.CloseConnection();
-		}
-
-		#endregion Conectar / Cerrar
+		#endregion Conectar
 
 		#region Test
 
@@ -80,7 +76,9 @@ namespace ConexionDB.Database {
 			bool salida = TryConectar();
 			try {
 				pers.CrearBase();
-			} catch (Exception ex) {
+			} catch (SQLiteException ex) {
+				throw ex;
+				BorrarBase(true);
 				salida = false;
 			}
 			return salida;
@@ -88,10 +86,11 @@ namespace ConexionDB.Database {
 
 		public static bool BorrarBase(bool forzar = false) {
 			try {
-				CConexionDB.CloseConnection();
+				if (forzar) CConexionDB.CloseConnection();
 				File.Delete(RutaReal);
 				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{RutaReal}> ");
 			} catch (IOException ex) {
+				// El programa sigue utilizando la base
 			}
 			return !Existe();
 		}

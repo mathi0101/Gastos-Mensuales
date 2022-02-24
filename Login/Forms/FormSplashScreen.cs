@@ -20,7 +20,8 @@ namespace Login.Forms {
 		#region Propiedades
 
 		private int contador = 0;
-		public bool connectionReady = false;
+		public bool connectionOK = false;
+		private bool sumar = true;
 
 		#endregion Propiedades
 
@@ -31,7 +32,7 @@ namespace Login.Forms {
 		}
 
 		private void FormSplashScreen_Load(object sender, EventArgs e) {
-			timer.Start();
+			timerLoadingBar.Start();
 			label.Text = "Iniciando...";
 		}
 
@@ -46,24 +47,70 @@ namespace Login.Forms {
 				panelslide.Left = -35;
 			}
 
-			contador += contador >= 0 ? 5 : 0;
-			if (contador < 300) {
+			contador += sumar ? 5 : 0;
+			if (contador == 300) {
 				label.Text = "Leyendo configuración del programa...";
-			} else if (contador < 500) {
+			} else if (contador == 500) {
 				label.Text = "Cargando aplicación...";
-			} else if (contador < 600) {
+			} else if (contador == 600) {
+				if (!backgroundWorker1.IsBusy) backgroundWorker1.RunWorkerAsync();
+				sumar = false;
+				contador = 605;
 				if (CDatabase.Existe()) {
-					connectionReady = CDatabase.TryConectar();
 					label.Text = "Cargando Base de Datos...";
 				} else {
-					connectionReady = CDatabase.CrearBase();
 					label.Text = "Creando la Base de Datos...";
 				}
-			} else {
+			} else if (contador == 605) {
+				if (!backgroundWorker1.IsBusy) {
+					sumar = true;
+				}
+			} else if (contador > 900) {
 				this.Dispose();
 			}
 		}
 
 		#endregion Tick
+
+		#region Background Database connection
+
+		private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
+			BackgroundWorker worker = sender as BackgroundWorker;
+			bool ok = false;
+			int seconds = 0;
+			if (CDatabase.Existe()) {
+				while (!ok && seconds <= 5) {
+					ok = CDatabase.TryConectar();
+					GC.Collect();
+					GC.WaitForPendingFinalizers();
+					if (!ok) Thread.Sleep(1000);
+					seconds++;
+				}
+			} else {
+				do {
+					ok = CDatabase.CrearBase();
+					if (!ok) Thread.Sleep(1000);
+					seconds++;
+				} while (!ok && seconds <= 5);
+			}
+			if (!ok) {
+				e.Cancel = true;
+			}
+		}
+
+		private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+		}
+
+		private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+			if (e.Cancelled == true) {
+				connectionOK = false;
+			} else if (e.Error != null) {
+				connectionOK = false;
+			} else {
+				connectionOK = true;
+			}
+		}
+
+		#endregion Background Database connection
 	}
 }

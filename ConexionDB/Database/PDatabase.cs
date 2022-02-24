@@ -108,9 +108,9 @@ namespace ConexionDB.Database {
 					pago_inicial  DATETIME NOT NULL,
 					pago_final	  DATETIME,
 					fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-					PRIMARY KEY(id AUTOINCREMENT)),
-					FOREIGN KEY (tipo_id) REFERENCES g_tipos(id)),
-					FOREIGN KEY (usuario_id) REFERENCES usuarios(id)),
+					PRIMARY KEY(id AUTOINCREMENT),
+					FOREIGN KEY (tipo_id) REFERENCES g_tipos(id),
+					FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
 					FOREIGN KEY (categoria_id) REFERENCES g_categorias(id));";
 		}
 

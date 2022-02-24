@@ -39,14 +39,13 @@ namespace Login.Forms {
 
 			FormSplashScreen form = new FormSplashScreen();
 			form.ShowDialog();
-			if (!form.connectionReady) {
+			if (!form.connectionOK) {
 				MessageBox.Show("No se ha podido conectar a la base de datos.\nAvisale al creador del programa de este error!", "Error al iniciar aplicación!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				this.DialogResult = DialogResult.Abort;
 				this.Dispose();
+			} else {
+				CargarUsuariosRegistrados();
 			}
-
 			this.Cursor = Cursors.Default;
-			CargarUsuariosRegistrados();
 		}
 
 		private void FormLogin_FormClosing(object sender, FormClosingEventArgs e) {

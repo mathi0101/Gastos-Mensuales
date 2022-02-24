@@ -23,9 +23,14 @@ namespace ConexionDB.Clases {
 			}
 		}
 
+		public static void OpenConnection() {
+			Conexion().Open();
+		}
+
 		public static void CloseConnection() {
-			conexion.Close();
-			conexion = null;
+			Conexion().Close();
+			GC.Collect();
+			GC.WaitForPendingFinalizers();
 		}
 	}
 }
