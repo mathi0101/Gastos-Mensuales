@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConexionDB.Database {
 
-	public class PDatabase {
+	internal class PDatabase {
 
 		#region Conexion
 
@@ -18,7 +18,7 @@ namespace ConexionDB.Database {
 
 		#region Constructor
 
-		public PDatabase() {
+		internal PDatabase() {
 			conexion = CConexionDB.Conexion();
 		}
 
@@ -26,7 +26,7 @@ namespace ConexionDB.Database {
 
 		#region Crear
 
-		public void CrearBase() {
+		internal void CrearBase() {
 			Command cmd = new Command() {
 				Connection = conexion,
 				CommandText = Tablas()
@@ -35,6 +35,18 @@ namespace ConexionDB.Database {
 		}
 
 		#endregion Crear
+
+		#region InicializarTablas
+
+		internal void InicializarTablas() {
+			throw new NotImplementedException();
+		}
+
+		private string CargarTiposGastos() {
+			throw new NotImplementedException();
+		}
+
+		#endregion InicializarTablas
 
 		#region TestConnection
 

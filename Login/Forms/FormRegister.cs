@@ -28,6 +28,7 @@ namespace Login.Forms {
 		}
 
 		private void FormRegister_Load(object sender, EventArgs e) {
+			dtpBirth.CustomFormat = "dd/MM/yyyy";
 			dtpBirth.MaxDate = DateTime.Now.AddYears(-18);
 		}
 
@@ -110,6 +111,7 @@ namespace Login.Forms {
 
 		private void btnAceptar_Click(object sender, EventArgs e) {
 			Register();
+			;
 		}
 
 		private void btnCancelar_Click(object sender, EventArgs e) {
@@ -179,42 +181,43 @@ namespace Login.Forms {
 				} else {
 					MessageBox.Show("No se ha podido agregar tu usuario a la base de datos.\nVerifica tus datos y vuelve a intentarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
+			} else {
+				return;
 			}
 		}
 
 		private bool CondicionesRegistrar() {
-			bool salida = true;
 			if (tbUser.Text == "") {
 				MessageBox.Show("Debes seleccionar un nombre de usuario para poder crear tu cuenta.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				tbUser.Focus();
-				salida = false;
+				return false;
 			}
 			if (tbUser.Text.Length < 3) {
 				MessageBox.Show("Tu nombre de usuario tiene que tener al menos 3 caracteres para poder crear tu cuenta.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				tbUser.Focus();
-				salida = false;
+				return false;
 			}
 			if (tbPass.Text != tbPass2.Text) {
 				MessageBox.Show($"Las contraseñas no coinciden", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				ContraseniasDistintas();
-				salida = false;
+				return false;
 			}
 			if (tbPass.Text.Length < LARGO_CONTRASEÑA_MIN) {
 				MessageBox.Show($"Tu contraseña debe contener al menos {LARGO_CONTRASEÑA_MIN} caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				ErrorContrasenia();
-				salida = false;
+				return false;
 			}
 			if (tbPass.Text.Length > LARGO_CONTRASEÑA_MAX) {
 				MessageBox.Show($"Tu contraseña debe contener como máximo {LARGO_CONTRASEÑA_MAX} caracteres.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				ErrorContrasenia();
-				salida = false;
+				return false;
 			}
 			if (tbName.Text == "") {
 				MessageBox.Show("Tu nombre no puede estar vacío.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				tbName.Focus();
-				salida = false;
+				return false;
 			}
-			return salida;
+			return true;
 		}
 
 		#endregion Registrar

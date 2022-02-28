@@ -164,7 +164,7 @@ namespace Login.Forms
 			// 
 			// dtpBirth
 			// 
-			this.dtpBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+			this.dtpBirth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
 			this.dtpBirth.Location = new System.Drawing.Point(143, 74);
 			this.dtpBirth.Name = "dtpBirth";
 			this.dtpBirth.Size = new System.Drawing.Size(98, 20);
@@ -251,7 +251,6 @@ namespace Login.Forms
 			// 
 			// FormRegister
 			// 
-			this.AcceptButton = this.btnAceptar;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancelar;

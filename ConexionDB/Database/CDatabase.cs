@@ -17,12 +17,12 @@ namespace ConexionDB.Database {
 		/// <summary>
 		/// Nombre de la base de datos.
 		/// </summary>
-		public static readonly string Nombre = "database.db";
+		public const string Nombre = "database.db";
 
 		/// <summary>
 		/// Nombre de la carpeta alojada en AppData
 		/// </summary>
-		public static readonly string CarpetaContenedora = "MisGastos";
+		public const string CarpetaContenedora = "MisGastos";
 
 		#endregion Constantes
 
@@ -76,6 +76,7 @@ namespace ConexionDB.Database {
 			bool salida = TryConectar();
 			try {
 				pers.CrearBase();
+				//pers.InicializarTablas();
 			} catch (SQLiteException ex) {
 				throw ex;
 				BorrarBase(true);
@@ -89,7 +90,7 @@ namespace ConexionDB.Database {
 				if (forzar) CConexionDB.CloseConnection();
 				File.Delete(RutaReal);
 				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{RutaReal}> ");
-			} catch (IOException ex) {
+			} catch (IOException) {
 				// El programa sigue utilizando la base
 			}
 			return !Existe();

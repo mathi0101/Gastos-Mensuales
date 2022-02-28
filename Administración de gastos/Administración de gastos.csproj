@@ -147,6 +147,12 @@
     <Compile Include="Forms\FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Gastos\FormIngresoDeGastos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Gastos\FormIngresoDeGastos.Designer.cs">
+      <DependentUpon>FormIngresoDeGastos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Personal\FormGestionTarjetas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Gastos\FormIngresoDeGastos.resx">
+      <DependentUpon>FormIngresoDeGastos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Personal\FormGestionTarjetas.resx">
       <DependentUpon>FormGestionTarjetas.cs</DependentUpon>
