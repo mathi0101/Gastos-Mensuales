@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Usuario.Clases;
-using ConexionDB.Database;
 using Usuario.Encrypt;
 using System.Configuration;
 

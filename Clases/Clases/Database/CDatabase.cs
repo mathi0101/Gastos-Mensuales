@@ -8,38 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConexionDB.Database {
+namespace Clases.Clases.Database {
 
 	public static class CDatabase {
-
-		#region Constantes
-
-		/// <summary>
-		/// Nombre de la base de datos.
-		/// </summary>
-		public const string Nombre = "database.db";
-
-		/// <summary>
-		/// Nombre de la carpeta alojada en AppData
-		/// </summary>
-		public const string CarpetaContenedora = "MisGastos";
-
-		#endregion Constantes
-
-		#region Propiedades
-
-		/// <summary>
-		/// Ruta exacta de la base de datos
-		/// </summary>
-		public static string RutaReal {
-			get => Path.Combine(RutaDeCarpeta, Nombre);
-		}
-
-		public static string RutaDeCarpeta {
-			get => Debugger.IsAttached ? CarpetaContenedora : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), CarpetaContenedora);
-		}
-
-		#endregion Propiedades
 
 		#region Conectar
 
@@ -67,10 +38,10 @@ namespace ConexionDB.Database {
 		#region DML
 
 		public static bool CrearBase() {
-			if (!Directory.Exists(RutaDeCarpeta)) {
-				Directory.CreateDirectory(RutaDeCarpeta);
+			if (!Directory.Exists(CConexionDB.RutaDeCarpeta)) {
+				Directory.CreateDirectory(CConexionDB.RutaDeCarpeta);
 			}
-			SQLiteConnection.CreateFile(RutaReal);
+			SQLiteConnection.CreateFile(CConexionDB.RutaReal);
 			PDatabase pers = new PDatabase();
 
 			bool salida = TryConectar();
@@ -88,8 +59,8 @@ namespace ConexionDB.Database {
 		public static bool BorrarBase(bool forzar = false) {
 			try {
 				if (forzar) CConexionDB.CloseConnection();
-				File.Delete(RutaReal);
-				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{RutaReal}> ");
+				File.Delete(CConexionDB.RutaReal);
+				Console.WriteLine($"Se ha borrado la base de datos ubicada en <{CConexionDB.RutaReal}> ");
 			} catch (IOException) {
 				// El programa sigue utilizando la base
 			}
@@ -100,8 +71,8 @@ namespace ConexionDB.Database {
 			bool salida = true;
 			try {
 				if (BorrarBase()) {
-					Directory.Delete(RutaDeCarpeta);
-					Console.WriteLine($"Se ha borrado la carpeta ubicada en <{RutaDeCarpeta}> ");
+					Directory.Delete(CConexionDB.RutaDeCarpeta);
+					Console.WriteLine($"Se ha borrado la carpeta ubicada en <{CConexionDB.RutaDeCarpeta}> ");
 				} else {
 					salida = false;
 				}
@@ -115,9 +86,9 @@ namespace ConexionDB.Database {
 
 		#region Públicas
 
-		public static bool Existe() => File.Exists(RutaReal);
+		public static bool Existe() => File.Exists(CConexionDB.RutaReal);
 
-		public static long Peso() => new FileInfo(RutaReal).Length;
+		public static long Peso() => new FileInfo(CConexionDB.RutaReal).Length;
 
 		public static double PesoKB() => Peso() / 1024;
 

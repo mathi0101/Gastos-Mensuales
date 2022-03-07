@@ -1,5 +1,4 @@
 ﻿using ConexionDB.Clases;
-using MisGastos.Clases.TipoDeGasto;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Administración_de_gastos.Clases.TipoDeGasto {
+namespace Clases.Clases.TipoDeGasto {
 
 	public class LTipoDeGasto {
 

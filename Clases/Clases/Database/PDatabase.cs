@@ -1,12 +1,15 @@
-﻿using ConexionDB.Clases;
+﻿using Clases.Clases.TipoDeGasto;
+using ConexionDB.Clases;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Usuario.Clases;
 
-namespace ConexionDB.Database {
+namespace Clases.Clases.Database {
 
 	internal class PDatabase {
 
@@ -32,6 +35,8 @@ namespace ConexionDB.Database {
 				CommandText = Tablas()
 			};
 			cmd.ExecuteNonQuery();
+
+			InicializarTablas();
 		}
 
 		#endregion Crear
@@ -39,11 +44,32 @@ namespace ConexionDB.Database {
 		#region InicializarTablas
 
 		internal void InicializarTablas() {
-			throw new NotImplementedException();
+			if (Debugger.IsAttached) {
+				new CUsuario() {
+					Nombre = "Admin",
+					Password
+				}.Agregar();
+			}
+			CargarTiposGastos();
 		}
 
-		private string CargarTiposGastos() {
-			throw new NotImplementedException();
+		private void CargarTiposGastos() {
+			CTipoDeGasto tipo = new CTipoDeGasto() {
+				Nombre = "Gasto fijo",
+				Descripcion = "Suscripciones, alquiler, etc."
+			};
+			CTipoDeGasto tipo1 = new CTipoDeGasto() {
+				Nombre = "Gasto variable",
+				Descripcion = "Transorte al trabajo, comida del mes casa/trabajo, nafta del auto, etc."
+			};
+			CTipoDeGasto tipo2 = new CTipoDeGasto() {
+				Nombre = "Gasto esporádico",
+				Descripcion = "Cena en restaurante, una cerveza en el super, una ida al cine, etc."
+			};
+
+			tipo.Agregar();
+			tipo1.Agregar();
+			tipo2.Agregar();
 		}
 
 		#endregion InicializarTablas

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MisGastos.Clases.TipoDeGasto {
+namespace Clases.Clases.TipoDeGasto {
 
 	public class CTipoDeGasto {
 

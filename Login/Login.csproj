@@ -86,6 +86,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Clases\Clases.csproj">
+      <Project>{903C0C36-C76C-4663-BAAD-48FD288AADB0}</Project>
+      <Name>Clases</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ConexionDB\ConexionDB.csproj">
       <Project>{6ea7ed33-e776-4f11-88db-7aa7c0a14e4e}</Project>
       <Name>ConexionDB</Name>

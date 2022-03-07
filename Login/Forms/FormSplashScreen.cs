@@ -1,5 +1,5 @@
-﻿using ConexionDB;
-using ConexionDB.Database;
+﻿using Clases.Clases.Database;
+using ConexionDB;
 using Login.Forms;
 using System;
 using System.Collections.Generic;
@@ -75,7 +75,7 @@ namespace Login.Forms {
 		#region Background Database connection
 
 		private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
-			BackgroundWorker worker = sender as BackgroundWorker;
+			//BackgroundWorker worker = sender as BackgroundWorker;
 			bool ok = false;
 			int seconds = 0;
 			if (CDatabase.Existe()) {

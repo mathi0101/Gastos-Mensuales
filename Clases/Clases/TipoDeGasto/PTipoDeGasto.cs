@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MisGastos.Clases.TipoDeGasto {
+namespace Clases.Clases.TipoDeGasto {
 
 	internal class PTipoDeGasto {
 		private SQLiteConnection conexion = CConexionDB.Conexion();
@@ -108,19 +108,16 @@ namespace MisGastos.Clases.TipoDeGasto {
 		#region Edición
 
 		public string AgregarValores(CTipoDeGasto obj) =>
-			obj.Id + ", " +
 			CFuncionesBD.StringToBD(obj.Nombre) + ", " +
 			CFuncionesBD.StringToBD(obj.Descripcion) + ", " +
 			CFuncionesBD.DataTimeToBD(obj.fechaCreacion);
 
 		public string AgregarVariables() =>
-			"id, " +
 			"nombre, " +
 			"descripcion, " +
 			"fecha_creacion ";
 
 		public string ModificarValores(CTipoDeGasto obj) =>
-		   " id= " + obj.Id + ", " +
 		   " nombre= " + CFuncionesBD.StringToBD(obj.Nombre) + ", " +
 		   " descripcion= " + CFuncionesBD.StringToBD(obj.Descripcion) + ", " +
 		   " fecha_creacion= " + CFuncionesBD.DataTimeToBD(obj.fechaCreacion);

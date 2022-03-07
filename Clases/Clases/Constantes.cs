@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MisGastos.Clases {
+namespace Clases.Clases {
 
 	public static class Constantes {
 		public static string datetimeStringCompleto = "";

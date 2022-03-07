@@ -1,4 +1,4 @@
-﻿using MisGastos.Clases.Log;
+﻿using Clases.Clases.Log;
 using MisGastos.Forms.Gastos;
 using MisGastos.Forms.Programa_Principal.Personal;
 using System;
