@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Administración_de_gastos.Clases.Log {
+namespace MisGastos.Clases.Log {
 
 	public class CLogForms {
 

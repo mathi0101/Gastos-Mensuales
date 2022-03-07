@@ -41,9 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\TipoDeGasto\CTipoDeGasto.cs" />
-    <Compile Include="Clases\TipoDeGasto\PTipoDeGasto.cs" />
-    <Compile Include="Clases\TipoDeGasto\SQLiteConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +48,9 @@
       <Project>{6EA7ED33-E776-4F11-88DB-7AA7C0A14E4E}</Project>
       <Name>ConexionDB</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Clases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

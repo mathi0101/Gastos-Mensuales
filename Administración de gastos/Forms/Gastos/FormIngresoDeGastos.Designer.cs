@@ -1,5 +1,5 @@
 ﻿
-namespace Administración_de_gastos.Forms.Gastos {
+namespace MisGastos.Forms.Gastos {
 	partial class FormIngresoDeGastos {
 		/// <summary>
 		/// Required designer variable.

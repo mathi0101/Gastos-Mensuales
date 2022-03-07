@@ -1,5 +1,5 @@
 ﻿
-namespace Administración_de_gastos.Forms.Programa_Principal.Personal {
+namespace MisGastos.Forms.Programa_Principal.Personal {
 	partial class FormGestionTarjetas {
 		/// <summary>
 		/// Required designer variable.

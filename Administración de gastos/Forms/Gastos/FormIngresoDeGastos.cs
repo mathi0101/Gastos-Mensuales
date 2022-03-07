@@ -8,8 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Administración_de_gastos.Forms.Gastos {
+namespace MisGastos.Forms.Gastos {
+
 	public partial class FormIngresoDeGastos : Form {
+
 		public FormIngresoDeGastos() {
 			InitializeComponent();
 		}

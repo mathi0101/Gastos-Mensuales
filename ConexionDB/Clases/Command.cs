@@ -62,15 +62,15 @@ namespace ConexionDB.Clases {
 		/// Ejecuta el comando y devuelve el numero de filas insertadas/modificadas afectadas por el
 		/// </summary>
 		/// <returns>El numero de filas insertadas/modificadas afectadas por el</returns>
-		public int ExecuteNonQuery() {
-			return _ExecuteNonQuery();
+		public bool ExecuteNonQuery() {
+			return _ExecuteNonQuery() > 0;
 		}
 
 		/// <summary>
 		/// Ejecuta el comando y devuelve true/false dependiendo de si se ha encontrado un elemento que cumpla las condiciones de la consulta
 		/// </summary>
 		/// <returns>Devuelve true/false dependiendo de si se ha encontrado un elemento que cumpla las condiciones de la consulta</returns>
-		public bool ExecuteExists() {
+		public bool ExecuteExist() {
 			return Convert.ToInt32(_ExecuteScalar()) > 0;
 		}
 

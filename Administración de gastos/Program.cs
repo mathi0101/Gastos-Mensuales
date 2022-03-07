@@ -1,4 +1,4 @@
-﻿using Administración_de_gastos.Forms.Programa_Principal;
+﻿using MisGastos.Forms.Programa_Principal;
 using ConexionDB.Database;
 using Login.Forms;
 using System;

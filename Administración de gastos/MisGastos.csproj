@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7493C5C1-CC20-4182-B85D-21B653AD91F0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Administración_de_gastos</RootNamespace>
-    <AssemblyName>Administración de gastos</AssemblyName>
+    <RootNamespace>MisGastos</RootNamespace>
+    <AssemblyName>MisGastosUY</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -140,7 +140,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\Constantes.cs" />
     <Compile Include="Clases\Log\CLogForms.cs" />
+    <Compile Include="Clases\TipoDeGasto\CTipoDeGasto.cs" />
+    <Compile Include="Clases\TipoDeGasto\LTipoDeGasto.cs" />
+    <Compile Include="Clases\TipoDeGasto\PTipoDeGasto.cs" />
     <Compile Include="Forms\FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>

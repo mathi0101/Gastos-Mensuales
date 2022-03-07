@@ -42,7 +42,7 @@ namespace Usuario.Clases {
 				CommandText = $"INSERT INTO {Tabla()} ({CamposAgregar()}) VALUES ({AgregarValores(obj)})"
 			};
 
-			return cmd.ExecuteNonQuery() > 0;
+			return cmd.ExecuteNonQuery();
 		}
 
 		public bool Modificar(CUsuario obj) {
@@ -53,7 +53,7 @@ namespace Usuario.Clases {
 							  $"WHERE {CndUser(obj)}"
 			};
 
-			return cmd.ExecuteNonQuery() > 0;
+			return cmd.ExecuteNonQuery();
 		}
 
 		public bool Eliminar(CUsuario obj) {
@@ -62,7 +62,7 @@ namespace Usuario.Clases {
 				CommandText = $"DELETE FROM {Tabla()} WHERE {CndUser(obj)}"
 			};
 
-			return cmd.ExecuteNonQuery() > 0;
+			return cmd.ExecuteNonQuery();
 		}
 
 		#endregion DML
@@ -79,7 +79,7 @@ namespace Usuario.Clases {
 							  $"WHERE {CndUser(obj)}"
 			};
 			//var registros = Convert.ToInt32(cmd.ExecuteScalar());
-			return cmd.ExecuteExists();
+			return cmd.ExecuteExist();
 		}
 
 		public bool Recuperar(CUsuario obj) {
@@ -243,7 +243,7 @@ namespace Usuario.Clases {
 							  $"FROM {Tabla()} " +
 							  $"WHERE {CndUser(obj)} AND {CndPass(obj)}"
 			};
-			return cmd.ExecuteExists();
+			return cmd.ExecuteExist();
 		}
 
 		public bool ModificarUltimoLogin(CUsuario obj) {
@@ -254,7 +254,7 @@ namespace Usuario.Clases {
 							  $"WHERE {CndUser(obj)}"
 			};
 
-			return cmd.ExecuteNonQuery() > 0;
+			return cmd.ExecuteNonQuery();
 		}
 
 		#endregion Adicionales

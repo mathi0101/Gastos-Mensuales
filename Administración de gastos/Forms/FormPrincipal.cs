@@ -1,5 +1,6 @@
-﻿using Administración_de_gastos.Clases.Log;
-using Administración_de_gastos.Forms.Programa_Principal.Personal;
+﻿using MisGastos.Clases.Log;
+using MisGastos.Forms.Gastos;
+using MisGastos.Forms.Programa_Principal.Personal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Usuario.Clases;
 
-namespace Administración_de_gastos.Forms.Programa_Principal {
+namespace MisGastos.Forms.Programa_Principal {
 
 	public partial class FormPrincipal : Form {
 
@@ -41,6 +42,10 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			log = new CLogForms(this);
 		}
 
+		private void timer1_Tick(object sender, EventArgs e) {
+			toolStripStatusFechaHora.Text = DateTime.Now.ToString("f");
+		}
+
 		#endregion Formulario
 
 		#region Privadas
@@ -68,12 +73,12 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 
 		#endregion Personal
 
-		private void timer1_Tick(object sender, EventArgs e) {
-			toolStripStatusFechaHora.Text = DateTime.Now.ToString("f");
+		#region Gastos
+
+		private void ingresosToolStripMenuItem1_Click(object sender, EventArgs e) {
+			log.Open(new FormIngresoDeGastos());
 		}
 
-		private void informaciónPersonalToolStripMenuItem_Click(object sender, EventArgs e) {
-
-		}
+		#endregion Gastos
 	}
 }

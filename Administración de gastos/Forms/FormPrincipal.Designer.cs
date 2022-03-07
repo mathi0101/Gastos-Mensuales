@@ -1,5 +1,5 @@
 ﻿
-namespace Administración_de_gastos.Forms.Programa_Principal {
+namespace MisGastos.Forms.Programa_Principal {
 	partial class FormPrincipal {
 		/// <summary>
 		/// Required designer variable.
@@ -28,13 +28,14 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusUsuario = new System.Windows.Forms.ToolStripStatusLabel();
+			this.toolStripStatusFechaHora = new System.Windows.Forms.ToolStripStatusLabel();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.informaciónPersonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gestiónDeTarjetasBancariasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.ingresosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gastosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripStatusFechaHora = new System.Windows.Forms.ToolStripStatusLabel();
 			this.timer1Second = new System.Windows.Forms.Timer(this.components);
+			this.ingresosToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -57,6 +58,12 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			this.toolStripStatusUsuario.Size = new System.Drawing.Size(47, 17);
 			this.toolStripStatusUsuario.Text = "Usuario";
 			// 
+			// toolStripStatusFechaHora
+			// 
+			this.toolStripStatusFechaHora.Name = "toolStripStatusFechaHora";
+			this.toolStripStatusFechaHora.Size = new System.Drawing.Size(113, 17);
+			this.toolStripStatusFechaHora.Text = "Fecha y Hora Actual";
+			// 
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -75,7 +82,7 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			this.informaciónPersonalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestiónDeTarjetasBancariasToolStripMenuItem});
 			this.informaciónPersonalToolStripMenuItem.Name = "informaciónPersonalToolStripMenuItem";
-			this.informaciónPersonalToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+			this.informaciónPersonalToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
 			this.informaciónPersonalToolStripMenuItem.Text = "Personal";
 			// 
 			// gestiónDeTarjetasBancariasToolStripMenuItem
@@ -93,21 +100,24 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 			// 
 			// gastosToolStripMenuItem
 			// 
+			this.gastosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ingresosToolStripMenuItem1});
 			this.gastosToolStripMenuItem.Name = "gastosToolStripMenuItem";
 			this.gastosToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
 			this.gastosToolStripMenuItem.Text = "Gastos";
-			// 
-			// toolStripStatusFechaHora
-			// 
-			this.toolStripStatusFechaHora.Name = "toolStripStatusFechaHora";
-			this.toolStripStatusFechaHora.Size = new System.Drawing.Size(113, 17);
-			this.toolStripStatusFechaHora.Text = "Fecha y Hora Actual";
 			// 
 			// timer1Second
 			// 
 			this.timer1Second.Enabled = true;
 			this.timer1Second.Interval = 1000;
 			this.timer1Second.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
+			// ingresosToolStripMenuItem1
+			// 
+			this.ingresosToolStripMenuItem1.Name = "ingresosToolStripMenuItem1";
+			this.ingresosToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.ingresosToolStripMenuItem1.Text = "Nuevo Ingreso";
+			this.ingresosToolStripMenuItem1.Click += new System.EventHandler(this.ingresosToolStripMenuItem1_Click);
 			// 
 			// FormPrincipal
 			// 
@@ -142,5 +152,6 @@ namespace Administración_de_gastos.Forms.Programa_Principal {
 		private System.Windows.Forms.ToolStripMenuItem gestiónDeTarjetasBancariasToolStripMenuItem;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusFechaHora;
 		private System.Windows.Forms.Timer timer1Second;
+		private System.Windows.Forms.ToolStripMenuItem ingresosToolStripMenuItem1;
 	}
 }
